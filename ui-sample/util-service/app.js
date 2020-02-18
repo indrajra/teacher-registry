@@ -22,8 +22,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const workFlowFunctionPre =  (req) => {
-     wfEngine.preInvoke(req);
+const workFlowFunctionPre = (req) => {
+    wfEngine.preInvoke(req);
 }
 
 const workFlowFunctionPost = (req, res) => {
@@ -32,7 +32,7 @@ const workFlowFunctionPost = (req, res) => {
 
 app.use((req, res, next) => {
     logger.info('pre api request interceptor');
-    workFlowFunctionPre(req);
+    // workFlowFunctionPre(req);
     next();
 });
 
@@ -45,7 +45,7 @@ app.use(interceptor(function (req, res) {
             send(body)
         },
         afterSend(oldResBody, newResBody) {
-            workFlowFunctionPost(req, newResBody)
+            // workFlowFunctionPost(req, newResBody)
         }
     }
 }));
@@ -96,8 +96,6 @@ app.post("/notification", (req, res, next) => {
     logger.info("Got notification from external party" + JSON.stringify(req.body))
     registryService.updateRecord(req, function (err, data) {
         if (data) {
-            logger.info("stringified " + JSON.stringify(data))
-
             return res.send(data);
         } else {
             return res.send(err);
@@ -160,14 +158,8 @@ const getFormTemplates = (header, callback) => {
 const getTemplateName = (roles, templateName) => {
     logger.debug("Roles for the current user is - " + roles)
     var highestRole = undefined
-    if (_.includes(roles, templateConfig.roles.admin)) {
-        highestRole = templateConfig.roles.admin
-    } else if (_.includes(roles, templateConfig.roles.partnerAdmin)) {
-        highestRole = templateConfig.roles.partnerAdmin
-    } else if (_.includes(roles, templateConfig.roles.finAdmin)) {
-        highestRole = templateConfig.roles.finAdmin
-    } else if (_.includes(roles, templateConfig.roles.reporter)) {
-        highestRole = templateConfig.roles.reporter
+    if (_.includes(roles, templateConfig.roles.principal)) {
+        highestRole = templateConfig.roles.principal
     } else if (_.includes(roles, templateConfig.roles.owner)) {
         highestRole = templateConfig.roles.owner
     }

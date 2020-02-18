@@ -119,13 +119,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/profile', this.userId, 'owner'])
   }
 
-  readUserDetails(data: String, token ){
+  readUserDetails(data: String, token ) {
     const requestData = {
       header: { Authorization: token },
       data: {
-        id: "open-saber.registry.search",
+        id: appConfig.API_ID.SEARCH,
         request: {
-          entityType: ["Employee"],
+          entityType: ["Teacher"],
           filters: {
             email: { eq: data }
           }
@@ -134,8 +134,8 @@ export class HeaderComponent implements OnInit {
       url: appConfig.URLS.SEARCH,
     }
     this.dataService.post(requestData).subscribe(response => {
-      this.cacheService.set(appConfig.cacheServiceConfig.cacheVariables.EmployeeDetails, response.result.Employee[0], { maxAge: appConfig.cacheServiceConfig.setTimeInMinutes * appConfig.cacheServiceConfig.setTimeInSeconds });
-      this.userId = response.result.Employee[0].osid;
+      this.cacheService.set(appConfig.cacheServiceConfig.cacheVariables.EmployeeDetails, response.result.Teacher[0], { maxAge: appConfig.cacheServiceConfig.setTimeInMinutes * appConfig.cacheServiceConfig.setTimeInSeconds });
+      this.userId = response.result.Teacher[0].osid;
       this.router.navigate(['/profile', this.userId, 'owner'])
     }, (err => {
       this.toasterService.error(this.resourceService.frmelmnts.msg.errorMsg);

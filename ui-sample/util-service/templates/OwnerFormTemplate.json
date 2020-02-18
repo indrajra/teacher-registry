@@ -1,136 +1,574 @@
 {
-    "type": "OwnerFormTemplate",
-    "action": "Employee",
+    "type": "Teacher",
+    "action": "Teacher",
     "data": {
-        "templateName": "defaultTemplate",
-        "action": "create",
-        "categories":{
-            "Personal information":["name", "orgName","externalId", "externalRole","email", "phone"],
-            "General":["slackAccess", "repoAccess", "startDate", "endDate", "workLocation", "workingStyle", "githubId", "macAddress"],
-            "Admin information":["role", "isActive","projectName","subProjectName", "nineAMreportTo", "remarks"],
-            "Billing":["proposedBilling"]
+      "templateName": "defaultTemplate",
+      "action": "create",
+      "categories": {
+        "Personal information": [
+          "name",
+          "code",
+          "email",
+          "gender"
+        ],
+        "General": [
+          "teacherType",
+          "academicQualification",
+          "yearOfJoiningService",
+          "daysOfNonTeachingAssignments",
+          "schoolId",
+          "trainedForChildrenSpecialNeeds",
+          "trainedInUseOfComputer"
+        ],
+        "In Service Teacher Training": [
+          "inServiceTeacherTraining"
+        ],
+        "Teaching Role": [
+          "teachingRole"
+        ],
+        "$comment": "Categories to divide the form into sections"
+      },
+      "fields": [
+        {
+          "code": "code",
+          "dataType": "text",
+          "name": "Teacher code",
+          "label": "Teacher code",
+          "description": "Teacher code",
+          "editable": true,
+          "placeholder": "Teacher code",
+          "inputType": "text",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 1
         },
-        "fields": [
+        {
+          "code": "name",
+          "dataType": "text",
+          "name": "Teacher name",
+          "label": "Teacher name",
+          "description": "Teacher name",
+          "editable": true,
+          "placeholder": "Teacher name",
+          "inputType": "text",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 2
+        },
+        {
+          "code": "email",
+          "dataType": "text",
+          "name": "email",
+          "label": "Email Id",
+          "description": "Email Id",
+          "editable": true,
+          "placeholder": "Email Id",
+          "inputType": "text",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "eight"
+          },
+          "index": 3
+        },
+        {
+          "code": "gender",
+          "dataType": "text",
+          "name": "gender",
+          "label": "Gender",
+          "description": "gender",
+          "editable": true,
+          "placeholder": "gender",
+          "inputType": "select",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "range": [
             {
-                "code": "name",
-                "dataType": "text",
-                "name": "Employee name",
-                "label": "Employee name",
-                "description": "Employee name",
-                "editable": true,
-                "placeholder": "Employee name",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "six"
-                },
-                "index": 1
+              "name": "Male"
             },
             {
-                "code": "phone",
-                "dataType": "text",
-                "name": "Phone",
-                "label": "Phone",
-                "description": "Phone",
-                "editable": true,
-                "placeholder": "Phone",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "six"
-                },
-                "index": 2
+              "name": "Female"
             },
             {
-                "code": "email",
-                "dataType": "text",
-                "name": "Email",
-                "label": "Email",
-                "description": "Email",
-                "editable": true,
-                "placeholder": "Email",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "twelve"
-                },
-                "index": 3
-            },
-           
-            {
-                "code": "externalId",
-                "dataType": "text",
-                "name": "externalId",
-                "label": "Partner Employee Id",
-                "description": "External Id",
-                "editable": true,
-                "placeholder": "External Id",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "six"
-                },
-                "index": 4
-            },
-            {
-                "code": "externalRole",
-                "dataType": "text",
-                "name": "externalRole",
-                "label": "External Role",
-                "description": "External Role",
-                "editable": true,
-                "placeholder": "External Role",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "six"
-                },
-                "index": 5
-            },
-            {
-                "code": "macAddress",
-                "dataType": "text",
-                "name": "macAddress",
-                "label": "Mac Address",
-                "description": "Mac Address",
-                "editable": true,
-                "placeholder": "Mac Address",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "four"
-                },
-                "index": 6
-            },
-            {
-                "code": "githubId",
-                "dataType": "text",
-                "name": "githubId",
-                "label": "GithubId",
-                "description": "GithubId",
-                "editable": true,
-                "placeholder": "GithubId",
-                "inputType": "text",
-                "required": true,
-                "displayProperty": "Editable",
-                "visible": true,
-                "renderingHints": {
-                    "semanticColumnWidth": "four"
-                },
-                "index": 7
+              "name": "Other"
             }
-        ]
+          ],
+          "renderingHints": {
+            "semanticColumnWidth": "four"
+          },
+          "index": 4
+        },
+        {
+          "code": "teacherType",
+          "dataType": "text",
+          "name": "TeacherType",
+          "label": "TeacherType",
+          "description": "TeacherType",
+          "editable": true,
+          "placeholder": "TeacherType",
+          "inputType": "select",
+          "required": false,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "four"
+          },
+          "range": [
+            {
+              "name": "Head",
+              "id": "Head"
+            },
+            {
+              "name": "Acting-Head",
+              "id": "Acting-Head"
+            },
+            {
+              "name": "Teacher",
+              "id": "Teacher"
+            },
+            {
+              "name": "Principal",
+              "id": "Principal"
+            },
+            {
+              "name": "VicePrincipal",
+              "id": "VicePrincipal"
+            },
+            {
+              "name": "Lecturer",
+              "id": "Lecturer"
+            }
+          ],
+          "index": 5
+        },
+        {
+          "code": "academicQualification",
+          "dataType": "text",
+          "name": "AcademicQualification",
+          "label": "AcademicQualification",
+          "description": "AcademicQualification",
+          "editable": true,
+          "placeholder": "AcademicQualification",
+          "inputType": "select",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "four"
+          },
+          "range": [
+            {
+              "name": "GRADUATE"
+            },
+            {
+              "name": "POSTGRADUATE"
+            },
+            {
+              "name": "MPHIL"
+            },
+            {
+              "name": "POSTDOC"
+            },
+            {
+              "name": "PHD"
+            }
+          ],
+          "index": 6
+        },
+        {
+          "code": "yearOfJoiningService",
+          "dataType": "text",
+          "name": "yearOfJoiningService",
+          "label": "Year Of Joining",
+          "description": "Year Of Joining",
+          "editable": true,
+          "placeholder": "Year Of Joining",
+          "inputType": "text",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "four"
+          },
+          "index": 4
+        },
+        {
+          "code": "teachingRole",
+          "dataType": "object",
+          "name": "teachingRole",
+          "label": "Teaching Role",
+          "description": "Teaching Role",
+          "editable": true,
+          "placeholder": "Teaching Role",
+          "inputType": "object",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "attributes": [
+            {
+              "code": "appointmentType",
+              "dataType": "text",
+              "name": "AppointmentType",
+              "label": "Appointment Type",
+              "description": "AppointmentType",
+              "editable": true,
+              "placeholder": "appointmentType",
+              "inputType": "select",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                {
+                  "name": "Regular"
+                },
+                {
+                  "name": "Contract"
+                },
+                {
+                  "name": "Part-time"
+                }
+              ],
+              "renderingHints": {
+                "semanticColumnWidth": "four"
+              },
+              "index": 1
+            },
+            {
+              "code": "appointmentYear",
+              "dataType": "text",
+              "name": "appointmentYear",
+              "label": "Appointment Year",
+              "description": "Appointment Year",
+              "editable": true,
+              "placeholder": "Appointment Year",
+              "inputType": "text",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "four"
+              },
+              "index": 1
+            },
+            {
+              "code": "status",
+              "dataType": "text",
+              "name": "status",
+              "label": "Status",
+              "description": "status",
+              "editable": true,
+              "placeholder": "status",
+              "inputType": "select",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                {
+                  "name": "Active"
+                },
+                {
+                  "name": "Inactive"
+                }
+              ],
+              "renderingHints": {
+                "semanticColumnWidth": "four"
+              },
+              "index": 1
+            },
+            {
+              "code": "classesTaught",
+              "dataType": "text",
+              "name": "ClassesTaught",
+              "label": "ClassesTaught",
+              "description": "classesTaught",
+              "editable": true,
+              "placeholder": "classesTaught",
+              "inputType": "select",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                {
+                  "name": "Kinder-garden"
+                },
+                {
+                  "name": "Primary"
+                },
+                {
+                  "name": "Secondary"
+                },
+                {
+                  "name": "HigherSecondary"
+                }
+              ],
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 1
+            },
+            {
+              "code": "appointedForSubjects",
+              "dataType": "array",
+              "name": "Subjects Taught",
+              "label": "Subjects Taught",
+              "description": "Subjects Taught",
+              "editable": true,
+              "placeholder": "Subjects Taught",
+              "inputType": "multiSelect",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "range": [
+                "ALL",
+                "LANGUAGE",
+                "ENGLISH",
+                "MATH",
+                "ENVSTUDIES",
+                "SPORTS",
+                "MUSIC",
+                "SCIENCE",
+                "SOCIALSTUDIES",
+                "ACCOUNTANCY",
+                "BIOLOGY",
+                "BUSINESSSTUDIES",
+                "CHEMISTRY",
+                "COMPSC",
+                "ECONOMICS",
+                "FINEARTS",
+                "ENGDRAWING",
+                "GEOGRAPHY",
+                "HISTORY",
+                "HOMESCIENCE",
+                "PHILOSOPHY",
+                "PHYSICS",
+                "POLITICALSCIENCE",
+                "FOREIGNLANG",
+                "BOTONY",
+                "ZOOLOGY",
+                "HINDI",
+                "MARATHI",
+                "SANSKRIT",
+                "SINDHI",
+                "URDU",
+                "ENLISH",
+                "REGIONALLANGUAGE",
+                "ARTEDUCATION",
+                "PHYSICALEDUCATION",
+                "WORKEDUCATION",
+                "OTHER"
+              ],
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 1
+            },
+            {
+              "code": "mainSubjectsTaught",
+              "dataType": "array",
+              "name": "mainSubjectsTaught",
+              "label": "MainSubjects Taught",
+              "description": "MainSubjects Taught",
+              "editable": true,
+              "placeholder": "MainSubjects Taught",
+              "inputType": "multiSelect",
+              "range": [
+                "ALL",
+                "LANGUAGE",
+                "ENGLISH",
+                "MATH",
+                "ENVSTUDIES",
+                "SPORTS",
+                "MUSIC",
+                "SCIENCE",
+                "SOCIALSTUDIES",
+                "ACCOUNTANCY",
+                "BIOLOGY",
+                "BUSINESSSTUDIES",
+                "CHEMISTRY",
+                "COMPSC",
+                "ECONOMICS",
+                "FINEARTS",
+                "ENGDRAWING",
+                "GEOGRAPHY",
+                "HISTORY",
+                "HOMESCIENCE",
+                "PHILOSOPHY",
+                "PHYSICS",
+                "POLITICALSCIENCE",
+                "FOREIGNLANG",
+                "BOTONY",
+                "ZOOLOGY",
+                "HINDI",
+                "MARATHI",
+                "SANSKRIT",
+                "SINDHI",
+                "URDU",
+                "ENLISH",
+                "REGIONALLANGUAGE",
+                "ARTEDUCATION",
+                "PHYSICALEDUCATION",
+                "WORKEDUCATION",
+                "OTHER"
+              ],
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 1
+            }
+          ],
+          "renderingHints": {
+            "semanticColumnWidth": "twelve"
+          },
+          "index": 4
+        },
+        {
+          "code": "inServiceTeacherTraining",
+          "dataType": "array",
+          "name": "InServiceTeacherTraining",
+          "label": "InService Teacher Training",
+          "description": "InServiceTeacherTraining",
+          "editable": true,
+          "placeholder": "InService Teacher Training",
+          "inputType": "object",
+          "required": false,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "twelve"
+          },
+          "attributes": [
+            {
+              "code": "daysOfInServiceTeacherTraining",
+              "dataType": "text",
+              "name": "daysOfInServiceTeacherTraining",
+              "label": "Days Of InService Teacher Training",
+              "description": "daysOfInServiceTeacherTraining",
+              "editable": true,
+              "placeholder": "daysOfInServiceTeacherTraining",
+              "inputType": "text",
+              "required": true,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "index": 1
+            },
+            {
+              "code": "trainingType",
+              "dataType": "text",
+              "name": "trainingType",
+              "label": "Training Type",
+              "description": "Training Type",
+              "editable": true,
+              "placeholder": "Training Type",
+              "inputType": "select",
+              "required": false,
+              "displayProperty": "Editable",
+              "visible": true,
+              "renderingHints": {
+                "semanticColumnWidth": "six"
+              },
+              "range": [
+                {
+                  "name": "BRC"
+                },
+                {
+                  "name": "CRC"
+                },
+                {
+                  "name": "DIET"
+                },
+                {
+                  "name": "Others"
+                }
+              ],
+              "index": 2
+            }
+          ],
+          "index": 4
+        },
+        {
+          "code": "daysOfNonTeachingAssignments",
+          "dataType": "text",
+          "name": "daysOfNonTeachingAssignments",
+          "label": "Days Of NonTeaching Assignments",
+          "description": "daysOfNonTeachingAssignments",
+          "editable": true,
+          "placeholder": "Days Of NonTeaching Assignments",
+          "inputType": "number",
+          "required": false,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 1
+        },
+        {
+          "code": "schoolId",
+          "dataType": "text",
+          "name": "schoolId",
+          "label": "School Id",
+          "description": "schoolId",
+          "editable": true,
+          "placeholder": "schoolId",
+          "inputType": "text",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 1
+        },
+        {
+          "code": "trainedForChildrenSpecialNeeds",
+          "dataType": "boolean",
+          "name": "trainedForChildrenSpecialNeeds",
+          "label": "Trained For Children SpecialNeeds",
+          "description": "Trained For Children SpecialNeeds",
+          "editable": true,
+          "placeholder": "Trained For Children SpecialNeeds",
+          "inputType": "boolean",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 1
+        },
+        {
+          "code": "trainedInUseOfComputer",
+          "dataType": "boolean",
+          "name": "trainedInUseOfComputer",
+          "label": "Trained In Use Of Computer",
+          "description": "Trained In Use Of Computer",
+          "editable": true,
+          "placeholder": "Trained In Use Of Computer",
+          "inputType": "boolean",
+          "required": true,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "six"
+          },
+          "index": 1
+        }
+      ]
     }
-}
+  }

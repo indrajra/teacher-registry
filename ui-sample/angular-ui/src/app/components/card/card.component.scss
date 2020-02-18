@@ -1,6 +1,11 @@
-.right{
-    float: right;
-    padding-bottom: 0.8rem;
+.flex-center{
+        padding-bottom: 0.8rem;
+        display: flex;
+        justify-content: center;
+}
+
+.my-avatar {
+    padding-top:1rem ;
 }
 
 .ui.two.buttons {
@@ -12,11 +17,68 @@
    
 }
 .ui.card {
-    width: 222px;
+    width: 174px;
+    height: 244px;
+}
+
+.card-background {
+    height: 72px;
+    top: 0;
+    left: 0;
+    background-repeat: repeat;
+    width: 100%;
+    object-fit: cover;
+    // background-color: #ccf0f3;
+}
+
+.content-info{
+    margin-top: 2.5rem;
+    text-align: center;
+    padding: 6px 6px;
+}
+.content-info .header {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: block;
+    line-height: 2.4rem!important;
+    max-height: 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    font-weight: 600;
+    color: rgba(0,0,0,.9);
+}
+
+.discover-entity-type-card__bottom-container {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+}
+
+.qualification {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 1.4rem!important;
+    max-height: 1.4rem;
+    height: 1rem;
+}
+.discover-entity-type-card__bottom-container .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: block;
+    line-height: 2.4rem!important;
+    max-height: 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ui.card>.content, .ui.cards>.card>.content {
-    padding: 9px 9px;
+    padding: 0px
 }
 .ui.card .meta{
     font-size: 0.8em;

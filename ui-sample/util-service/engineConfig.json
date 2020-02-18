@@ -3,8 +3,9 @@
     "rules": [{
         "url": "/register/users",
         "method": "post",
-        "preActions": [],
-        "postActions": []
+        "postActions": [
+            "sendNotificationForRequestToOnBoard"
+        ]
     },
     {
         "url": "/registry/update",

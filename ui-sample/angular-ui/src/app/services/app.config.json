@@ -1,6 +1,6 @@
 {
     "cacheServiceConfig": {
-        "setTimeInMinutes": 30,
+        "setTimeInMinutes": 60,
         "setTimeInSeconds": 60,
         "cacheVariables": {
             "UserKeyCloakData": "userKeyCloakData",
@@ -40,6 +40,13 @@
         "REGISTER": "/register/users",
         "FORM_TEPLATE": "/formtemplates",
         "OWNER_FORM_TEMPLATE":"/owner/formTemplate"
+    },
+    "API_ID": {
+        "CREATE": "open-saber.registry.create",
+        "READ": "open-saber.registry.read",
+        "UPDATE": "open-saber.registry.update",
+        "DELETE": "open-saber.registry.delete",
+        "SEARCH": "open-saber.registry.search"
     },
     "PAGE_LIMIT": 20
 }

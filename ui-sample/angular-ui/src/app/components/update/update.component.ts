@@ -51,20 +51,30 @@ export class UpdateComponent implements OnInit {
       this.viewOwnerProfile = params.role;
     });
     this.userToken = this.cacheService.get(appConfig.cacheServiceConfig.cacheVariables.UserToken);
-    if (_.isEmpty(this.userToken )) {
+    if (_.isEmpty(this.userToken)) {
       this.userToken = this.userService.getUserToken;
     }
     this.getUserDetails();
-    this.getFormTemplate();
+  }
+
+  createSubObjectForFormInput() {
+    _.map(this.formFieldProperties, field => {
+      if (field.inputType === 'object') {
+        if (!this.formInputData[field]) {
+          this.formInputData[field.code] = {};
+        }
+      }
+    });
+
   }
 
   getUserDetails() {
     const requestData = {
       header: { Authorization: this.userToken },
       data: {
-        id: "open-saber.registry.read",
+        id: appConfig.API_ID.READ,
         request: {
-          Employee: {
+          Teacher: {
             osid: this.userId
           },
         }
@@ -72,8 +82,15 @@ export class UpdateComponent implements OnInit {
       url: appConfig.URLS.READ,
     }
     this.dataService.post(requestData).subscribe(response => {
-      this.formInputData = response.result.Employee;
-      this.userInfo = JSON.stringify(response.result.Employee)
+      this.getFormTemplate();
+      if (response.params.status === 'SUCCESSFULL') {
+        this.formInputData = response.result.Teacher;
+        this.createSubObjectForFormInput();
+        this.userInfo = JSON.stringify(response.result.Teacher)
+      } else {
+        this.createSubObjectForFormInput();
+      }
+
     }, (err => {
       console.log(err)
     }))
@@ -132,7 +149,7 @@ export class UpdateComponent implements OnInit {
         }
       });
       if (emptyFields.length === 0) {
-        this.updateInfo(updatedFields, diffObj);
+        this.updateInfo(updatedFields);
       }
       else {
         this.toasterService.warning("Profile updation failed please provide required fields " + emptyFields.join(', '));
@@ -140,12 +157,12 @@ export class UpdateComponent implements OnInit {
     }
   }
 
-  updateInfo(updatedFieldValues, diffObj) {
+  updateInfo(updatedFieldValues) {
     const requestData = {
       data: {
-        id: "open-saber.registry.update",
+        id: appConfig.API_ID.UPDATE,
         request: {
-          Employee: updatedFieldValues
+          Teacher: updatedFieldValues
         },
       },
       header: { Authorization: this.userToken },
@@ -153,7 +170,7 @@ export class UpdateComponent implements OnInit {
     };
     this.dataService.post(requestData).subscribe(response => {
       if (response.params.status === "SUCCESSFUL") {
-        this.toasterService.success(diffObj + " successfully updated");
+        this.toasterService.success(this.resourceService.frmelmnts.msg.updateSuccess);
         this.navigateToProfilePage();
       }
     }, err => {
@@ -162,7 +179,7 @@ export class UpdateComponent implements OnInit {
   }
 
   navigateToProfilePage() {
-    if(this.viewOwnerProfile) {
+    if (this.viewOwnerProfile) {
       this.router.navigate(['/profile', this.userId, this.viewOwnerProfile]);
     }
     else {

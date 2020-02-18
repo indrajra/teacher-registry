@@ -28,7 +28,10 @@ export class CreateComponent implements OnInit {
   success = false;
   isError = false;
   errMessage: string;
-  formInputDta = {}
+  formInputData = {};
+  categories: any = {};
+  sections = []
+
   constructor(resourceService: ResourceService, formService: FormService, dataService: DataService, route: Router, public userService: UserService, private cacheService: CacheService,
     public toasterService: ToasterService) {
     this.resourceService = resourceService;
@@ -40,28 +43,48 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.formService.getFormConfig("employee").subscribe(res => {
       this.formFieldProperties = res.fields;
+      this.categories = res.categories;
+      this.getCategory();
+      this.createSubObjectForFormInput();
     })
   }
+
+  createSubObjectForFormInput() {
+    _.map(this.formFieldProperties, field => {
+      if (field.inputType === 'object')
+        this.formInputData[field.code] = {};
+    });
+  }
+
+  getCategory() {
+    _.map(this.categories, (value, key) => {
+      var filtered_people = _.filter(this.formFieldProperties, function (field) {
+        return _.includes(value, field.code);
+      });
+      this.sections.push({ name: key, fields: filtered_people });
+    });
+  }
+
 
   /**
    * validates required fields
    */
   validate() {
-    let emptyFields = [];
-    _.map(this.formFieldProperties, field => {
-      if (field.required) {
-        if (!this.formData.formInputData[field.code]) {
-          let findObj = _.find(this.formFieldProperties, { code: field.code });
-          emptyFields.push(findObj.label);
-        }
-      }
-    });
-    if (emptyFields.length === 0) {
+    // let emptyFields = [];
+    // _.map(this.formFieldProperties, field => {
+    //   if (field.required) {
+    //     if (!this.formData.formInputData[field.code]) {
+    //       let findObj = _.find(this.formFieldProperties, { code: field.code });
+    //       emptyFields.push(findObj.label);
+    //     }
+    //   }
+    // });
+    // if (emptyFields.length === 0) {
       this.registerNewUser();
-    }
-    else {
-      this.toasterService.warning("Employee registration failed please provide required fields " + emptyFields.join(', '));
-    }
+    // }
+    // else {
+    //   this.toasterService.warning("Employee registration failed please provide required fields " + emptyFields.join(', '));
+    // }
 
   }
 
@@ -74,7 +97,10 @@ export class CreateComponent implements OnInit {
     }
     const requestData = {
       data: {
-        request: this.formData.formInputData
+        id: appConfig.API_ID.CREATE,
+        request: {
+          Teacher: this.formData.formInputData
+        }
       },
       header: {
         Authorization: token

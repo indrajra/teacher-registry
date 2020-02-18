@@ -22,9 +22,9 @@
         "academicQualification",
         "yearOfJoiningService",
         "teachingRole",
-        "disabilityType",
         "trainedForChildrenSpecialNeeds",
-        "trainedInUseOfComputer"
+        "trainedInUseOfComputer",
+        "schoolId"
       ],
       "properties": {
         "signatures": {
@@ -72,7 +72,7 @@
         },
         "inServiceTeacherTraining": {
           "$id": "#/properties/inServiceTeacherTrainingFromBRC",
-          "type": "array",
+          "type": "object",
           "items": {
             "$ref": "InServiceTeacherTraining.json#/definitions/InServiceTeacherTraining"
           }
@@ -80,10 +80,6 @@
         "daysOfNonTeachingAssignments": {
           "$id": "#/properties/daysOfNonTeachingAssignments",
           "type": "number"
-        },
-        "disabilityType": {
-          "$id": "#/properties/disabilityType",
-          "$ref": "Common.json#/definitions/DisabilityType"
         },
         "trainedForChildrenSpecialNeeds": {
           "$id": "#/properties/trainedForChildrenSpecialNeeds",

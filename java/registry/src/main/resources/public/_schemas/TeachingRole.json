@@ -35,7 +35,9 @@
         "appointedForSubjects": {
           "$id": "#/properties/appointedForSubjects",
           "type": "array",
-          "$ref": "Common.json#/definitions/Subjects"
+          "items": {
+            "$ref": "Common.json#/definitions/Subjects"
+          }
         },
         "mainSubjectsTaught": {
           "$id": "#/properties/mainSubjectsTaught",

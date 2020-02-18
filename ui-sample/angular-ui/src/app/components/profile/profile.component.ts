@@ -54,8 +54,19 @@ export class ProfileComponent implements OnInit {
     if (_.isEmpty(this.viewOwnerProfile) && this.viewOwnerProfile == undefined) {
       this.enable = true;
     }
-    this.getFormTemplate();
     this.getUserDetails();
+    }
+
+
+  createSubObjectForFormInput() {
+    _.map(this.formFieldProperties, field => {
+      if (field.inputType === 'object') {
+        if (!this.formInputData[field]) {
+          this.formInputData[field.code] = {};
+        }
+      }
+    });
+
   }
 
   getFormTemplate() {
@@ -126,9 +137,9 @@ export class ProfileComponent implements OnInit {
     const requestData = {
       header: { Authorization: token },
       data: {
-        id: "open-saber.registry.read",
+        id: appConfig.API_ID.READ,
         request: {
-          Employee: {
+          Teacher: {
             osid: this.userId
           },
           includeSignatures: true,
@@ -137,8 +148,14 @@ export class ProfileComponent implements OnInit {
       url: appConfig.URLS.READ,
     }
     this.dataService.post(requestData).subscribe(response => {
-      this.formInputData = response.result.Employee;
-      this.userInfo = JSON.stringify(response.result.Employee)
+      this.getFormTemplate();
+      if (response.params.status === 'SUCCESSFUL') {
+        this.formInputData = response.result.Teacher;
+        this.userInfo = JSON.stringify(response.result.Teacher)
+        this.createSubObjectForFormInput();
+      } else {
+        this.createSubObjectForFormInput();
+      }
     }, (err => {
       console.log(err)
     }))

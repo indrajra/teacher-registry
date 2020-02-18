@@ -24,6 +24,7 @@ export class CardComponent implements OnInit {
   @Output() clickEvent = new EventEmitter<any>();
   resourceService: ResourceService;
   color = this.getRandColor();
+  backgroundColor = this.getbackgroundColor();
   public permissionService: PermissionService;
   public approveEmployee: Array<string>;
   public enableViewProfile = true;
@@ -45,6 +46,11 @@ export class CardComponent implements OnInit {
     if (this.permissionService.checkRolesPermissions(this.approveEmployee)) {
       this.enableViewProfile = false;
     }
+  }
+  getbackgroundColor() {
+    let colors = ["#ccf0f3", "#DEF1E1", "#e1e9ee"]
+    let randNum = Math.floor(Math.random() * 3);
+    return colors[randNum];
   }
 
   getRandColor() {
@@ -81,11 +87,12 @@ export class CardComponent implements OnInit {
     const requestData = {
       header: { Authorization: token },
       data: {
-        id: "open-saber.registry.update",
+        id: appConfig.API_ID.UPDATE,
         request: {
-          Employee: {
+          Teacher: {
             osid: userId,
-            isOnboarded: true
+            isOnboarded: true,
+            isActive: true
           }
         }
       },

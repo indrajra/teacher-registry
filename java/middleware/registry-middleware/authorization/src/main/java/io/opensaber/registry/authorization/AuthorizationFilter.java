@@ -94,7 +94,7 @@ public class AuthorizationFilter implements Middleware {
 	public AuthInfo extractTokenIntoAuthInfo(String token) {
 		AuthInfo authInfo = new AuthInfo();
 		try {
-			Jwts.parser().setSigningKey(keyCloakServiceImpl.getPublicKey()).parseClaimsJws(token);
+			Jwts.parser().setSigningKey(keyCloakServiceImpl.getPublicKey()).  parseClaimsJws(token);
 
 			String[] split_string = token.split("\\.");
 			String base64EncodedBody = split_string[1];

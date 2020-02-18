@@ -14,6 +14,7 @@ const vars = require('./sdk/vars').getAllVars(process.env.NODE_ENV);
 var cacheManager = new CacheManager();
 var registryService = new RegistryService();
 const keycloakHelper = new KeycloakHelper(vars.keycloak);
+const entityType = 'Teacher';
 
 const classesMapping = {
     'TeacherRegFunctions': TeacherRegFunctions,
@@ -32,6 +33,12 @@ app.theApp.post("/register/users", (req, res, next) => {
     });
 });
 
+/**
+ * creates user in keycloak and add record to the registry
+ * first gets the bearer token needed to create user in keycloak and registry
+ * @param {*} req 
+ * @param {*} callback 
+ */
 const createUser = (req, callback) => {
     async.waterfall([
         function (callback) {
@@ -40,9 +47,15 @@ const createUser = (req, callback) => {
         },
         function (token, callback) {
             req.headers['authorization'] = token;
-            keycloakHelper.registerUserToKeycloak(req, callback)
+            var keycloakUserReq = {
+                body: {
+                    request: req.body.request[entityType]
+                },
+                headers: req.headers
+            }
+            keycloakHelper.registerUserToKeycloak(keycloakUserReq, callback)
         },
-        function (req, res, callback2) {
+        function (res, callback2) {
             addRecordToRegistry(req, res, callback2)
         }
     ], function (err, result) {
@@ -55,6 +68,11 @@ const createUser = (req, callback) => {
     });
 }
 
+/**
+ * returns user token and caches if token is not cached
+ * @param {*} req 
+ * @param {*} callback 
+ */
 const getTokenDetails = (req, callback) => {
     if (!req.headers.authorization) {
         cacheManager.get('usertoken', function (err, tokenData) {
@@ -76,24 +94,15 @@ const getTokenDetails = (req, callback) => {
     }
 }
 
+/**
+ * adds record to the registry
+ * @param {objecr} req 
+ * @param {*} res 
+ * @param {*} callback 
+ */
 const addRecordToRegistry = (req, res, callback) => {
     if (res.statusCode == 201) {
-        let reqParam = req.body.request;
-        reqParam['isOnboarded'] = false;
-        let reqBody = {
-            "id": "open-saber.registry.create",
-            "ver": "1.0",
-            "ets": "11234",
-            "params": {
-                "did": "",
-                "key": "",
-                "msgid": ""
-            },
-            "request": {
-                "Teacher": reqParam
-            }
-        }
-        req.body = reqBody;
+        req.body.request[entityType]['isOnboarded'] = false;
         registryService.addRecord(req, function (err, res) {
             if (res.statusCode == 200) {
                 logger.info("record successfully added to registry")

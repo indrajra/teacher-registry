@@ -93,13 +93,10 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   processContent(data) {
     const content: any = {
       name: data.name,
-      subProjectName: data.subProjectName,
-      role: data.role,
-      isOnboarded: data.isOnboarded,
-      startDate: data.startDate,
       identifier: data.osid,
-      endDate: data.endDate,
-      isActive: data.isActive
+      subjects: data.mainSubjectsTaught,
+      teacherType: data.teacherType,
+      qualification: data.academicQualification
     };
     return content;
   }
@@ -147,8 +144,8 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     this.fetchEmployees(total)
   }
 
-  previous(prevOffset = 10) {
-    let total = this.paginationDetails.currentOffset - prevOffset;
+  previous() {
+    let total = this.paginationDetails.currentOffset - this.paginationDetails.offset;
     if (total >= this.paginationDetails.intialOffset) {
       this.paginationDetails.currentOffset = total;
       this.fetchEmployees(total)
@@ -191,32 +188,31 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       url: appConfig.URLS.SEARCH,
       header: { Authorization: token },
       data: {
-        id: "open-saber.registry.search",
+        id: appConfig.API_ID.SEARCH,
         request: {
-          entityType: ["Employee"],
+          entityType: ["Teacher"],
           filters: {
-          },
-          viewTemplateId: "Employee_SearchResult.json"
+          }
         }
       }
     }
     let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
     filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
     option.data.request.filters = this.getFilterObject(filters);
-    if(!this.queryParams.key) {
+    if (!this.queryParams.key) {
       option.data.request['offset'] = offset;
       option.data.request['limit'] = this.paginationDetails.limit;
     }
     this.dataService.post(option)
       .subscribe(data => {
-        if (data.result.Employee && data.result.Employee.length > 0) {
+        if (data.result.Teacher && data.result.Teacher.length > 0) {
           this.showLoader = false;
-          this.listOfEmployees = this.getDataForCard(data.result.Employee);
+          this.listOfEmployees = this.getDataForCard(data.result.Teacher);
           this.result = {
             "headers": _.keys(this.listOfEmployees[0]),
             "row": this.listOfEmployees
           }
-          if (data.result.Employee.length < this.paginationDetails.limit) {
+          if (data.result.Teacher.length < this.paginationDetails.limit) {
             this.showLoader = false;
             this.paginationDetails.nextBtn = true;
           }

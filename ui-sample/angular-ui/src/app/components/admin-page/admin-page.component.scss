@@ -11,19 +11,28 @@ tr th {
     top:25px;
 }
 
+.pb-0 {
+    padding-bottom: 0px !important;
+}
+
 .ui.icon.button {
     background: white;
     padding: 1px 4px 7px 7px;
     border: 1px solid rgba(34,36,38,.15);
-    .primary-search-icon {
-      font-size: 1.2em;  
-      color: black;     
-    }
 }
-.ui.small.input {
-    width: 370px !important;
+.ui.input input {
+    border-radius: 2rem;
+    width: 26rem;
     height: 3rem;
 }
+.ui.icon.input .search.icon {
+    cursor: pointer;
+}
+.ui.icon.input>i.icon:not(.link) {
+    pointer-events: visible;
+}
+
+
 ::ng-deep {
     .ui.fluid.action.input.primary-search-input {
         height: 39px;
@@ -50,13 +59,16 @@ tr th {
   }
 
 .mt-5 {
-    margin-top: 0.5rem;
+    margin-top: 0.08rem;
 }
 .mr-1 {
     margin-right: 1rem;
 }
 .mb-1 {
     margin-bottom: 1rem;
+}
+.mb-2 {
+    margin-bottom: 2rem;
 }
 
 .py-2 {
@@ -70,6 +82,10 @@ tr th {
 
 .table-scroll {
     overflow-y: scroll;
+}
+
+.fit-content {
+    width: fit-content;
 }
 
 .one.wide.column.fit-content {
