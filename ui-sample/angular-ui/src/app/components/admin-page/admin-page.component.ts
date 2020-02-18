@@ -44,6 +44,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   public buttonText: string = 'list view'
   result: { "headers": string; "row": {}; };
   userService: UserService;
+  schoolId = ""
 
   constructor(dataService: DataService, resourceService: ResourceService, route: Router, activatedRoute: ActivatedRoute,
     userService: UserService, public cacheService: CacheService, public toasterService: ToasterService) {
@@ -56,6 +57,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getUserDetails();
     this.resetPaigination();
     this.result = {
       "headers": '',
@@ -80,7 +82,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       list.push(card);
     });
     return <ICard[]>list;
-    
+
     // FIXME: Put all resigned employees last
     // return <ICard[]>list.sort((a, b) => {
     //   if (a.endDate > b.endDate) {
@@ -90,12 +92,44 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     // });
   }
 
+  getUserDetails() {
+    let userInfo = this.cacheService.get(appConfig.cacheServiceConfig.cacheVariables.EmployeeDetails);
+    if(userInfo) {
+      this.schoolId = userInfo.schoolId;
+    } else {
+      let token = this.cacheService.get(appConfig.cacheServiceConfig.cacheVariables.UserToken);
+      if (_.isEmpty(token)) {
+        token = this.userService.getUserToken;
+      }
+      const requestData = {
+        header: { Authorization: token },
+        data: {
+          id: appConfig.API_ID.READ,
+          request: {
+            Teacher: {
+              osid: ""
+            },
+            includeSignatures: true,
+          }
+        },
+        url: appConfig.URLS.READ,
+      }
+      this.dataService.post(requestData).subscribe(response => {
+        if (response.params.status === 'SUCCESSFUL') {
+  
+        }
+      }, (err => {
+        console.log(err)
+      }))
+    }
+  }
+
   processContent(data) {
     const content: any = {
       name: data.name,
       identifier: data.osid,
-      subjects: data.mainSubjectsTaught,
       teacherType: data.teacherType,
+      code:data.code,
       qualification: data.academicQualification
     };
     return content;
@@ -199,6 +233,9 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
     filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
     option.data.request.filters = this.getFilterObject(filters);
+    option.data.request.filters['schoolId'] = {
+      eq: this.schoolId
+    }
     if (!this.queryParams.key) {
       option.data.request['offset'] = offset;
       option.data.request['limit'] = this.paginationDetails.limit;

@@ -27,7 +27,7 @@
     </div>
     <div class="row">
       <div class="three wide computer four wide tablet twelve wide mobile column">
-        <div class="ui container segment fit-content mb-20">
+        <div class="ui container segment fit-content mb-20 py-10">
           <app-data-filter (dataDrivenFilter)="getFilters($event)" [ignoreQuery]="['key']" *ngIf="initFilters"
             [accordionDefaultOpen]=true [isShowFilterLabel]=true></app-data-filter>
         </div>

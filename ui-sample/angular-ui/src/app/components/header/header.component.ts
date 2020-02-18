@@ -24,22 +24,22 @@ export class HeaderComponent implements OnInit {
   resourceService: ResourceService;
   avtarMobileStyle = {
     backgroundColor: 'transparent',
-    color: '#AAAAAA',
+    color: 'white',
     fontFamily: 'inherit',
     fontSize: '17px',
     lineHeight: '38px',
-    border: '1px solid #e8e8e8',
+    border: '1px solid white',
     borderRadius: '50%',
     height: '38px',
     width: '38px'
   };
   avtarDesktopStyle = {
     backgroundColor: 'transparent',
-    color: '#AAAAAA',
+    color: 'white',
     fontFamily: 'inherit',
     fontSize: '17px',
     lineHeight: '38px',
-    border: '1px solid #e8e8e8',
+    border: '1px solid white',
     borderRadius: '50%',
     height: '38px',
     width: '38px'
