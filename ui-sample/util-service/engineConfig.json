@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "rules": [{
+        "url": "/register/users",
+        "method": "post",
+        "preActions": [],
+        "postActions": []
+    },
+    {
+        "url": "/registry/update",
+        "method": "post",
+        "preActions": [],
+        "postActions": [
+            "notifyUsersBasedOnAttributes"
+        ]
+    }]
+}

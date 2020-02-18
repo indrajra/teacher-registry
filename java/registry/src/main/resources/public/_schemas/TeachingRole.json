@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-/schema",
+  "type": "object",
+  "properties": {
+    "teachingRole": {
+      "$ref": "#/definitions/TeachingRole"
+    }
+  },
+  "title":"teachingRole",
+  "required": [
+    "teachingRole"
+  ],
+  "definitions": {
+    "TeachingRole": {
+      "$id": "#",
+      "type": "object",
+      "required": [
+        "appointmentType",
+        "classesTaught",
+        "appointedForSubjects",
+        "mainSubjectsTaught",
+        "appointmentYear",
+        "status"
+      ],
+      "properties": {
+        "appointmentType": {
+          "$id": "#/properties/appointmentType",
+          "$ref": "Common.json#/definitions/AppointmentType"
+        },
+        "classesTaught": {
+          "$id": "#/properties/classesTaught",
+          "type": "array",
+          "$ref": "Common.json#/definitions/ClassType"
+        },
+        "appointedForSubjects": {
+          "$id": "#/properties/appointedForSubjects",
+          "type": "array",
+          "$ref": "Common.json#/definitions/Subjects"
+        },
+        "mainSubjectsTaught": {
+          "$id": "#/properties/mainSubjectsTaught",
+          "type": "array",
+          "items": {
+            "$ref": "Common.json#/definitions/Subjects"
+          }
+        },
+        "appointmentYear": {
+          "$id": "#/properties/appointmentYear",
+          "$ref": "Common.json#/definitions/Year"
+        },
+        "status": {
+          "$id": "#/properties/status",
+          "$ref": "Common.json#/definitions/Status"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+         "osComment": "Refer to _osconfig $comment section of Teacher.json",
+         "privateFields": []
+  }
+}

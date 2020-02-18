@@ -1,0 +1,36 @@
+{
+  "subject": "Teacher",
+  "fields": [
+    {
+      "name": "code"
+    },
+    {
+      "name": "name"
+    },
+    {
+      "name": "gender"
+    },
+    {
+      "name": "academicQualification",
+      "title": "qualification"
+    },
+    {
+      "name": "yearOfJoiningService"
+    },
+    {
+      "name": "teachingRole"
+    },
+    {
+      "name": "disabilityType"
+    },
+    {
+      "name": "trainedForChildrenSpecialNeeds"
+    },
+    {
+      "name": "trainedInUseOfComputer"
+    },
+    {
+      "name": "schoolId"
+    }
+  ]
+}

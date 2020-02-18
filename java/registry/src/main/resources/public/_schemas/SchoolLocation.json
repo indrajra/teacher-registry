@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "location": {
+      "type": "object",
+      "items": {
+        "$ref": "#/definitions/Location"
+      }
+    }
+  },
+  "title":"Location",
+  "required": [
+    "location"
+  ],
+  "definitions": {
+    "Location": {
+      "$id": "#/properties/",
+      "required": [
+        "block",
+        "blockId",
+        "district",
+        "districtId",
+        "state",
+        "stateId"
+      ],
+      "properties": {
+        "blockId": {
+          "$id": "#/properties/name",
+          "type": "string"
+        },
+        "districtId": {
+          "$id": "#/properties/name",
+          "type": "string"
+        },
+        "stateId": {
+          "$id": "#/properties/name",
+          "type": "string"
+        },
+        "$comment": "The names below are mirrored for use. They can be periodically updated",
+        "block": {
+          "$id": "#/properties/block",
+          "type": "string"
+        },
+        "district": {
+          "$id": "#/properties/block",
+          "type": "string"
+        },
+        "district": {
+          "$id": "#/properties/block",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "_osConfig": {
+    "osComment": ["This section contains the OpenSABER specific configuration information",
+      "privateFields: Optional; list of field names to be encrypted and stored in database",
+      "signedFields: Optional; list of field names that must be pre-signed",
+      "indexFields: Optional; list of field names used for creating index. Enclose within braces to indicate it is a composite index. In this definition, (serialNum, teacherCode) is a composite index and teacherName is a single column index.",
+      "uniqueIndexFields: Optional; list of field names used for creating unique index. Field names must be different from index field name",
+      "systemFields: Optional; list of fields names used for system standard information like created, updated timestamps and userid"],
+
+    "privateFields": [],
+    "signedFields": [],
+    "indexFields": ["blockId", "districtId", "stateId"],
+    "uniqueIndexFields": [],
+    "systemFields": [
+      "osCreatedAt",
+      "osUpdatedAt",
+      "osCreatedBy",
+      "osUpdatedBy"
+    ]
+  }
+}

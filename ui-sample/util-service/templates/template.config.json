@@ -1,0 +1,14 @@
+{
+    "formTemplates": {
+        "principal": "templates/PrincipalFormTemplate.json",
+        "owner": "templates/OwnerFormTemplate.json"
+    },
+    "searchTemplates": {
+        "principal": "Principal_SearchResult.json",
+        "owner": "Owner_SearchTemplates.json"
+    },
+    "roles": {
+        "owner": "owner",
+        "principal": "principal"
+    }
+}

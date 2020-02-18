@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title":"common",
+  "definitions": {
+    "@type": {
+      "type": "string"
+    },
+    "Gender": {
+      "type": "string",
+      "enum": [
+        "Male",
+        "Female",
+        "Other"
+      ]
+    },
+    "Date": {
+      "type": "string",
+      "format": "date",
+      "$comment": "YYYY-MM-DD format",
+      "examples": [
+        "1990-12-01"
+      ]
+    },
+    "Year": {
+      "type": "string",
+      "pattern": "(^[0-9]{4}$)"
+    },
+    "AcademicQualification": {
+      "type": "string",
+      "enum": [
+        "GRADUATE",
+        "POSTGRADUATE",
+        "MPHIL",
+        "POSTDOC",
+        "PHD"
+      ]
+    },
+    "TeacherType": {
+      "type": "string",
+      "enum": [
+        "Head",
+        "Acting-Head",
+        "Teacher",
+        "Principal",
+        "VicePrincipal",
+        "Lecturer"
+      ]
+    },
+    "AppointmentType": {
+      "type": "string",
+      "enum": [
+        "Regular",
+        "Contract",
+        "Part-time"
+      ]
+    },
+    "ClassType": {
+      "type": "string",
+      "enum": [
+        "Kinder-garden",
+        "Primary",
+        "Secondary",
+        "HigherSecondary"
+      ]
+    },
+    "Subjects": {
+      "type": "string",
+      "enum": [
+        "ALL",
+        "LANGUAGE",
+        "ENGLISH",
+        "MATH",
+        "ENVSTUDIES",
+        "SPORTS",
+        "MUSIC",
+        "SCIENCE",
+        "SOCIALSTUDIES",
+        "ACCOUNTANCY",
+        "BIOLOGY",
+        "BUSINESSSTUDIES",
+        "CHEMISTRY",
+        "COMPSC",
+        "ECONOMICS",
+        "FINEARTS",
+        "ENGDRAWING",
+        "GEOGRAPHY",
+        "HISTORY",
+        "HOMESCIENCE",
+        "PHILOSOPHY",
+        "PHYSICS",
+        "POLITICALSCIENCE",
+        "FOREIGNLANG",
+        "BOTONY",
+        "ZOOLOGY",
+        "HINDI",
+        "MARATHI",
+        "SANSKRIT",
+        "SINDHI",
+        "URDU",
+        "ENLISH",
+        "REGIONALLANGUAGE",
+        "ARTEDUCATION",
+        "PHYSICALEDUCATION",
+        "WORKEDUCATION",
+        "OTHER"
+      ]
+    },
+    "YesNoCodeStr": {
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "YesNoCode": {
+      "type": "boolean"
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Inactive"
+      ]
+    }
+  }
+}
