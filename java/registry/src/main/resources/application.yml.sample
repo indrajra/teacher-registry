@@ -94,10 +94,10 @@ database:
       #     ** Example - Postgres - jdbc:postgresql://localhost:5432/yourdb
       #     * 3. NoSQL  databases (Cassandra)
       #     ** Example - cassandra - jdbc:cassandra://localhost:9160/yourdb
-      uri: ${connectionInfo_uri:jdbc:postgresql://localhost:5432/devconTeacherDb}
+      uri: ${connectionInfo_uri:jdbc:postgresql://localhost:5432/devconteacherdb}
 
-      username: ${connectionInfo_username:}
-      password: ${connectionInfo_password:@123}
+      username: ${connectionInfo_username:username}
+      password: ${connectionInfo_password:password}
 
       # Any other shard information follows...
       #-
@@ -158,8 +158,8 @@ audit:
 
 authentication:
   enabled: ${authentication_enabled:true}
-  publicKey:  ${authentication_publickey:MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqe1lVD9jnQWQce62e2Q44tACqBIt5UZyGzCegxax2gddj4xotY5BDxaxuJRGKDLRpm8lPNHxX8dce8SUVAMBfk85rL+Bxv1mjspKo7Q5qsFm9TGcvE4e/4xhgpMjw6dCFt8+S87jvRjmDHjakGMooOls1kjppQiklSEZ0lW3Crqet4RNjb1FNJ+2Jg26frm8i2cpb2wRnmLDuQ9sAnHCxAD2rGxSGLXhKABptbMeTVx25eh+PVISjc78uOhAnMwOHKApVBGnVCfcUoVYqfkX8XcPQU9ybmAi27vp9xZqMfh6I56Tl4fsWYBgf8ZMl0UWyRR3PNmo/0kxon1d3zqFnwIDAQAB}
-  realm:  ${authentication_realm:PartnerRegistry}
+  publicKey:  ${authentication_publickey:MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjsSSU9st0N5PUmFbyIhTvoYBQB4sQbsnldMq2DJpYndEuUqnfb5iTUln/+g6JCRpqd2SN0mZ84RkWO2AyxNzOlh4uN/Y8iMiioHgqUqMIM9P8EowYBvUZiM46DvncnK8YRHllkvBKsRe5ova4MTEP5b3vIc08QwhluK+0jAqPdFBsawsNt9aGL2pKNBoueNI620DLVAp+kuAAea/b4/7a9JdgZ/3wBbcBSmsT2ErxYmFHNrz/dH/A9yvbqYUIacruCBFoglVXRGaRPFGi3+SWicabkn+UvbiFar4JAetN4k6axELmViLUStbMqWPZu6LtCFJIuFzLcZvbQ0m911fFwIDAQAB}
+  realm:  ${authentication_realm:TeacherRegistry}
   url:  ${authentication_url:http://localhost:8443/auth/}
 
 validation:
