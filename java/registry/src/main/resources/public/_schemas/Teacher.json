@@ -45,6 +45,11 @@
           "type": "string",
           "title": "Full name"
         },
+        "email": {
+          "$id": "#/properties/email",
+          "type": "string",
+          "title": "Email"
+        },
         "gender": {
           "$id": "#/properties/gender",
           "$ref": "Common.json#/definitions/Gender"
