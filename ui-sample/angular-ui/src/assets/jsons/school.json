@@ -1,0 +1,175 @@
+{
+    "type": "School",
+    "action": "School",
+    "data": {
+        "templateName": "defaultTemplate",
+        "action": "create",
+        "categories": {
+            "General information": [
+                "orgname",
+                "externalid"
+            ],
+            "Location Information": [
+                "location"
+            ],
+            "$comment": "Categories to divide the form into sections"
+        },
+        "fields": [
+            {
+                "code": "orgname",
+                "dataType": "text",
+                "name": "orgname",
+                "label": "School Name",
+                "description": "School Name",
+                "editable": true,
+                "placeholder": "School Name",
+                "inputType": "text",
+                "required": false,
+                "displayProperty": "Editable",
+                "visible": true,
+                "renderingHints": {
+                    "semanticColumnWidth": "six"
+                },
+                "index": 1
+            },
+            {
+                "code": "externalid",
+                "dataType": "text",
+                "name": "externalid",
+                "label": "External Id",
+                "description": "External Id",
+                "editable": true,
+                "placeholder": "External Id",
+                "inputType": "text",
+                "required": false,
+                "displayProperty": "Editable",
+                "visible": true,
+                "renderingHints": {
+                    "semanticColumnWidth": "six"
+                },
+                "index": 2
+            },
+            {
+                "code": "location",
+                "dataType": "object",
+                "name": "location",
+                "label": "Location",
+                "description": "Location",
+                "editable": true,
+                "placeholder": "Location",
+                "inputType": "object",
+                "required": false,
+                "displayProperty": "Editable",
+                "visible": true,
+                "attributes": [
+                    {
+                        "code": "block",
+                        "dataType": "text",
+                        "name": "block",
+                        "label": "Block",
+                        "description": "block",
+                        "editable": true,
+                        "placeholder": "block",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "blockId",
+                        "dataType": "text",
+                        "name": "blockId",
+                        "label": "Block Id",
+                        "description": "Block Id",
+                        "editable": true,
+                        "placeholder": "Block Id",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "district",
+                        "dataType": "text",
+                        "name": "district",
+                        "label": "District",
+                        "description": "district",
+                        "editable": true,
+                        "placeholder": "district",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "districtId",
+                        "dataType": "text",
+                        "name": "districtId",
+                        "label": "District Id",
+                        "description": "District Id",
+                        "editable": true,
+                        "placeholder": "District Id",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "six"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "state",
+                        "dataType": "text",
+                        "name": "State",
+                        "label": "State",
+                        "description": "State",
+                        "editable": true,
+                        "placeholder": "State",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "six"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "stateId",
+                        "dataType": "text",
+                        "name": "stateId",
+                        "label": "State Id",
+                        "description": "State Id",
+                        "editable": true,
+                        "placeholder": "State Id",
+                        "inputType": "text",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "six"
+                        },
+                        "index": 1
+                    }
+                ],
+                "renderingHints": {
+                    "semanticColumnWidth": "twelve"
+                },
+                "index": 4
+            }
+        ]
+    }
+}
