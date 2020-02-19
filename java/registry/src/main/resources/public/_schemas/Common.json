@@ -57,7 +57,7 @@
     "ClassType": {
       "type": "string",
       "enum": [
-        "Kinder-garden",
+        "Kindergarten",
         "Primary",
         "Secondary",
         "HigherSecondary"

@@ -92,6 +92,10 @@
         "schoolId": {
           "$id": "#/properties/school",
           "type": "string"
+        },
+        "isApproved": {
+          "$id": "#/properties/isApproved",
+          "type": "boolean"
         }
       }
     }

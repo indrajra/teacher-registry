@@ -4,6 +4,7 @@
  * Programmatically invoke APIs to populate database
  * 
  */
+"use strict"
 
 var request = require("request")
 var async = require("async")
@@ -13,10 +14,10 @@ var csvjson = require('csvjson');
 var _ = require('lodash');
 
 var invoke_add = function (nIter, payload, callback) {
-    var url = baseUrl + "/add"
+    var url = baseUrl + "/register/users"
     var headerVars = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ",
+        "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTSDhpcHVxaUFjR1ZOWjg3R05mNkxMM1BlalR5aG9uSktlRFpVNGFwamlnIn0.eyJqdGkiOiI3MTk2YTYwOC0wZDhkLTQwYzUtOWRkMC1lM2M1N2E2ZjVjOTMiLCJleHAiOjE1ODIxNTgxNzcsIm5iZiI6MCwiaWF0IjoxNTgyMTI5Mzc3LCJpc3MiOiJodHRwOi8vdGVhY2hlci5yZWdpc3RyeS5jb206ODA4MC9hdXRoL3JlYWxtcy9UZWFjaGVyUmVnaXN0cnkiLCJzdWIiOiJmNmY1ZmY4MC1mNGM3LTRkZTktODljYS0zOGUzYzI4NTczOTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiIxNjNkMDAyMi1jN2U2LTRhOGQtYjVkMy1lYjVmYmJkMmJhNmYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJSYWplc2ggQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZWFjaGVyYWRtaW4iLCJnaXZlbl9uYW1lIjoiUmFqZXNoIiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImVtYWlsIjoicmFqZXNockBpbGltaS5pbiJ9.ja3HidqyTUq_ntMFZqKCh49DYH-3ehuFgmfJYD9ImbTCIOUWlLGx8zlarXLvo9J8FWZiNjXnRWShrTOscJBiM9fiSP6kydUQjve-l4gLtoUu7TAhKrL-7EbOamxRbazoBT_oY0fhK8j_NcZZZIZY2qt06NrhK_4Nk4-N1U3WMQxTHOnDLtQEVdY_jeTrJc38tBIbqLE36gsDxFGm5_kfbUJr9p_pzms8DVLlNHSs7fiAwff78kHbVYE06dq9G4TpzjsRZ-iFl0ddDxVZXq3t2aZ0f4o0tIR96-ilHI2xkhQTPZUH3bvtlcTX5HIFWmwkua66XlV_gwcCfpo9XdC-yw",
         "x-authenticated-user-token": ""
     }
 
@@ -70,87 +71,75 @@ var populate_add_tasks = function (tasks, entityType, static_payload, arrDynamic
         completePayload["request"][entityType] = attrsMerged
 
         //console.log(itr + " - payload = " + JSON.stringify(completePayload))
+        var toDeleteCols = ["teacherType", "appointmentType",
+        "classesTaught", "appointedForSubjects", "mainSubjectsTaught",
+        "appointmentYear", "status"]
 
-        /*
-id,channel,createdby,createddate,
-datetime,description,email,externalid,
-hashtagid,homeurl,imgurl,isapproved,
-isdefault,isrootorg,isssoenabled,keys,
-locationid,locationids,noofmembers,orgcode,
-orgname,orgtype,orgtypeid,parentorgid,
-preferredlanguage,provider,rootorgid,slug,
-status
-*/
-
-        // Have externalid, location, orgname
         var dataPortion = completePayload["request"][entityType]
-        var toDeleteCols = ["id", "channel", "createdby", "createddate", "datetime", "description",
-            "email", "hashtagid", "homeurl", "imgurl",
-            "isapproved", "isdefault", "isrootorg", "isssoenabled",
-            "keys", "locationid", "noofmembers", "orgcode",
-            "orgtype", "orgtypeid", "parentorgid", "preferredlanguage",
-            "provider", "rootorgid", "slug", "status"]
-        toDeleteCols.forEach(field => {
-            delete dataPortion[field]
-        })
-
         for (var field in dataPortion) {
             var fieldVal = dataPortion[field]
+            console.log(fieldVal)
             if (fieldVal.indexOf("[") != -1) {
                 var myArr = new Array()
                 var individualItems = fieldVal.replace(/\[|\]/g, "")
-                //console.log("Expect [] to be removed " + JSON.stringify(individualItems) + " flag = " + individualItems.indexOf(","));
-                if (individualItems.indexOf(",") != -1) {
-                    console.log("Array contains multiple values")
-                    // More than one item
-                    // For every locationIds, construct and lookup locationId
-                    var locationObj = {
-                        "block": "",
-                        "blockId": "",
-                        "district": "",
-                        "districtId": "",
-                        "state": "",
-                        "stateId": ""
-                    }
-                    var arrItems = individualItems.split(",")
-                    arrItems.forEach(element => {
-                        var elementWoQuote = element.replace(/\'/g, "")
-                        elementWoQuote = elementWoQuote.trim()
-                        myArr.push(element);
-                        var thisLoc = g_locationObj[elementWoQuote]
-
-                        if (thisLoc === undefined) {
-                            console.log("element not found " + elementWoQuote)
+                console.log("Expect [] to be removed " + JSON.stringify(individualItems) + " flag = " + individualItems.indexOf(","));
+                if (fieldVal.indexOf("[") != -1) {
+                    var myArr = new Array()
+                    var individualItems = fieldVal.replace(/\[|\]/g, "")
+                    //console.log("Expect [] to be removed " + JSON.stringify(individualItems) + " flag = " + individualItems.indexOf(","));
+                    if (individualItems.indexOf(",") != -1) {
+                        // console.log("Array contains multiple values")
+                        // More than one item
+                        var arrItems = individualItems.split(",")
+                        arrItems.forEach(element => {
+                            myArr.push(element);
+                        });
+                    } else {
+                        //console.log("Just one item in the array for " + field + " = " + individualItems)
+    
+                        if (parseInt(individualItems)) {
+                            //console.log("is integer")
+                            myArr.push(parseInt(individualItems))
                         } else {
-                            var name = thisLoc["name"]
-                            var type = thisLoc["type"]
-                            console.log("type is " + type)
-                            if (type === 'district') {
-                                locationObj["district"] = name
-                                locationObj["districtId"] = elementWoQuote
-                            } else if (type === 'block') {
-                                locationObj["block"] = name
-                                locationObj["blockId"] = elementWoQuote
-                            } else if (type === 'state') {
-                                locationObj["state"] = name
-                                locationObj["stateId"] = elementWoQuote
-                            }
-
+                            myArr.push(individualItems)
                         }
+                    }
 
-                    });
-                    dataPortion["location"] = locationObj
-                    delete dataPortion["locationids"]
-                    //console.log("Adding location object" + JSON.stringify(completePayload))
+                    console.log("Array", myArr);
+                    dataPortion[field] = myArr
                 }
             }
-
-            // If there are field specific code, set here.
         }
+
+        var teachingRole = {}
+        teachingRole['teacherType'] = dataPortion['teacherType']
+        teachingRole['appointmentType'] = dataPortion['appointmentType']
+        teachingRole['classesTaught'] = dataPortion['classesTaught']
+        teachingRole['appointedForSubjects'] = dataPortion['appointedForSubjects']
+        teachingRole['mainSubjectsTaught'] = dataPortion['mainSubjectsTaught']
+        teachingRole['appointmentYear'] = dataPortion['appointmentYear']
+        teachingRole['status'] = dataPortion['status']
+    
+
+        dataPortion['teachingRole'] = teachingRole
+
 
         // console.log(completePayload)
         // Any extra column to delete from the csv goes here
         //delete dataPortion.ParentCode
+        
+
+        toDeleteCols.forEach(field => {
+            delete dataPortion[field]
+        })
+
+        var dataPortion = completePayload["request"][entityType]
+
+        dataPortion['trainedForChildrenSpecialNeeds'] = (dataPortion['trainedForChildrenSpecialNeeds1'] === '1')
+        dataPortion['trainedInUseOfComputer'] = (dataPortion['trainedInUseOfComputer1'] === '1')
+
+        delete dataPortion.trainedInUseOfComputer1
+        delete dataPortion.trainedForChildrenSpecialNeeds1
 
         allPayloads.push(completePayload)
     }
@@ -222,11 +211,11 @@ var addApiPayload = {
 }
 
 // The subject that we have schematized
-var entityType = "School"
+var entityType = "Teacher"
 addApiPayload.request[entityType] = {}
 
 // The URL where the registry is running
-var baseUrl = "http://localhost:9080"
+var baseUrl = "http://localhost:9081"
 
 // Whether you want to run in dryRun mode
 // true - API will not be invoked.
@@ -238,16 +227,11 @@ var dataEntities = {}
 
 function populate(cb) {
     var student_tasks = [];
-    var studentCSV = csvToJson('odisha_schools.csv')
+    var studentCSV = csvToJson('odisha_teachers.csv')
     populate_add_tasks(student_tasks, entityType, addApiPayload, studentCSV)
     console.log("Total number of students = " + student_tasks.length)
     execute_tasks(student_tasks, "data.json", cb)
 }
-
-createLocationMap()
-setTimeout(function() {
-    console.log('Waited and continuing now')
-}, 3000);
 
 populate(function (err, result) {
     if (err) {
@@ -257,3 +241,5 @@ populate(function (err, result) {
     console.log("Finished successfully");
     return result;
 })
+
+
