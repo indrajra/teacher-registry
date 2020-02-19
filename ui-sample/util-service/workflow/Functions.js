@@ -17,7 +17,7 @@ class Functions {
         // Provide a property bag for any data exchange between workflow functions.
         this._placeholders = {};
 
-        this.notifyAttributes = ["macAddress", "githubId", "isOnboarded"]
+        this.notifyAttributes = ["isApproved", "teacherType", "githubId", "name", "email"]
     }
 
     setRequest(request) {
@@ -74,6 +74,7 @@ class Functions {
         req.body.id = appConfig.APP_ID.READ,
             registryService.readRecord(req, (err, data) => {
                 if (data) {
+                    console.log(data)
                     callback(null, data)
                 } else {
                     callback(err);

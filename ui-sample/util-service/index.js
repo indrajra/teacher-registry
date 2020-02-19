@@ -102,7 +102,7 @@ const getTokenDetails = (req, callback) => {
  */
 const addRecordToRegistry = (req, res, callback) => {
     if (res.statusCode == 201) {
-        req.body.request[entityType]['isApproved'] = true;
+        req.body.request[entityType]['isApproved'] = false;
         registryService.addRecord(req, function (err, res) {
             if (res.statusCode == 200) {
                 logger.info("record successfully added to registry")

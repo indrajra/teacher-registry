@@ -18,10 +18,8 @@
           "daysOfNonTeachingAssignments",
           "schoolId",
           "trainedForChildrenSpecialNeeds",
-          "trainedInUseOfComputer"
-        ],
-        "In Service Teacher Training": [
-          "inServiceTeacherTraining"
+          "trainedInUseOfComputer",
+          "isApproved"
         ],
         "Teaching Role": [
           "teachingRole"
@@ -548,7 +546,7 @@
           "displayProperty": "Editable",
           "visible": true,
           "renderingHints": {
-            "semanticColumnWidth": "six"
+            "semanticColumnWidth": "four"
           },
           "index": 1
         },
@@ -565,7 +563,24 @@
           "displayProperty": "Editable",
           "visible": true,
           "renderingHints": {
-            "semanticColumnWidth": "six"
+            "semanticColumnWidth": "four"
+          },
+          "index": 1
+        },
+        {
+          "code": "isApproved",
+          "dataType": "boolean",
+          "name": "isApproved",
+          "label": "isApproved",
+          "description": "isApproved",
+          "editable": true,
+          "placeholder": "isApproved",
+          "inputType": "boolean",
+          "required": false,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "four"
           },
           "index": 1
         }

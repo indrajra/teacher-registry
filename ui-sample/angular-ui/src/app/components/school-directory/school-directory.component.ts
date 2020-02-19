@@ -10,13 +10,14 @@ import appConfig from '../../services/app.config.json';
 import { UserService } from 'src/app/services/user/user.service';
 import { CacheService } from 'ng2-cache-service';
 import { ToasterService } from 'src/app/services/toaster/toaster.service';
+import { FormService } from 'src/app/services/forms/form.service';
 
 @Component({
-  selector: 'app-admin-page',
-  templateUrl: './admin-page.component.html',
-  styleUrls: ['./admin-page.component.scss']
+  selector: 'app-school-directory',
+  templateUrl: './school-directory.component.html',
+  styleUrls: ['./school-directory.component.scss']
 })
-export class AdminPageComponent implements OnInit, OnDestroy {
+export class SchoolDirectoryComponent implements OnInit {
 
   dataService: DataService;
   public showLoader = true;
@@ -57,18 +58,19 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getUserDetails();
     this.resetPaigination();
     this.result = {
       "headers": '',
       "row": ''
     }
     this.initFilters = true;
-    this.dataDrivenFilterEvent.pipe(first()).
-      subscribe((filters: any) => {
-        this.dataDrivenFilters = filters;
-        this.fetchDataOnParamChange();
-      });
+    this.fetchDataOnParamChange();
+
+    // this.dataDrivenFilterEvent.pipe(first()).
+    //   subscribe((filters: any) => {
+    //     this.dataDrivenFilters = filters;
+    //     this.fetchDataOnParamChange();
+    //   });
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.queryParams = { ...queryParams };
       this.key = this.queryParams['key'];
@@ -83,61 +85,21 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     });
     return <ICard[]>list;
 
-    // FIXME: Put all resigned employees last
-    // return <ICard[]>list.sort((a, b) => {
-    //   if (a.endDate > b.endDate) {
-    //     return 1;
-    //   }
-    //   return 0;
-    // });
   }
 
-  getUserDetails() {
-    let userInfo = this.cacheService.get(appConfig.cacheServiceConfig.cacheVariables.EmployeeDetails);
-    if(userInfo) {
-      this.schoolId = userInfo.schoolId;
-    } else {
-      let token = this.cacheService.get(appConfig.cacheServiceConfig.cacheVariables.UserToken);
-      if (_.isEmpty(token)) {
-        token = this.userService.getUserToken;
-      }
-      const requestData = {
-        header: { Authorization: token },
-        data: {
-          id: appConfig.API_ID.READ,
-          request: {
-            Teacher: {
-              osid: ""
-            },
-            includeSignatures: true,
-          }
-        },
-        url: appConfig.URLS.READ,
-      }
-      this.dataService.post(requestData).subscribe(response => {
-        if (response.params.status === 'SUCCESSFUL') {
-  
-        }
-      }, (err => {
-        console.log(err)
-      }))
-    }
-  }
 
   processContent(data) {
     const content: any = {
-      name: data.name,
+      name: data.orgname,
       identifier: data.osid,
       teacherType: data.teacherType,
-      code:data.code,
-      qualification: data.academicQualification,
-      isApproved: data.isApproved
+      code:data.externalid
     };
     return content;
   }
 
   navigateToProfilePage(user: any) {
-    this.router.navigate(['/profile', user.data.identifier]);
+    this.router.navigate(['/schoolInfo', user.data.identifier]);
   }
 
   changeView() {
@@ -161,7 +123,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       delete this.queryParams['key'];
     }
     this.resetPaigination()
-    this.router.navigate(["/search"], {
+    this.router.navigate(["/school"], {
       queryParams: this.queryParams
     });
   }
@@ -225,7 +187,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       data: {
         id: appConfig.API_ID.SEARCH,
         request: {
-          entityType: ["Teacher"],
+          entityType: ["School"],
           filters: {
           }
         }
@@ -234,23 +196,20 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     let filters = _.pickBy(this.queryParams, (value: Array<string> | string) => value && value.length);
     filters = _.omit(filters, ['key', 'sort_by', 'sortType', 'appliedFilters']);
     option.data.request.filters = this.getFilterObject(filters);
-    option.data.request.filters['schoolId'] = {
-      eq: this.schoolId
-    }
     if (!this.queryParams.key) {
       option.data.request['offset'] = offset;
       option.data.request['limit'] = this.paginationDetails.limit;
     }
     this.dataService.post(option)
       .subscribe(data => {
-        if (data.result.Teacher && data.result.Teacher.length > 0) {
+        if (data.result.School && data.result.School.length > 0) {
           this.showLoader = false;
-          this.listOfEmployees = this.getDataForCard(data.result.Teacher);
+          this.listOfEmployees = this.getDataForCard(data.result.School);
           this.result = {
             "headers": _.keys(this.listOfEmployees[0]),
             "row": this.listOfEmployees
           }
-          if (data.result.Teacher.length < this.paginationDetails.limit) {
+          if (data.result.School.length < this.paginationDetails.limit) {
             this.showLoader = false;
             this.paginationDetails.nextBtn = true;
           }

@@ -18,10 +18,8 @@
           "daysOfNonTeachingAssignments",
           "schoolId",
           "trainedForChildrenSpecialNeeds",
-          "trainedInUseOfComputer"
-        ],
-        "In Service Teacher Training": [
-          "inServiceTeacherTraining"
+          "trainedInUseOfComputer",
+          "isApproved"
         ],
         "Teaching Role": [
           "teachingRole"
@@ -114,7 +112,7 @@
           "name": "TeacherType",
           "label": "TeacherType",
           "description": "TeacherType",
-          "editable": true,
+          "editable": false,
           "placeholder": "TeacherType",
           "inputType": "select",
           "required": false,
@@ -221,10 +219,10 @@
               "name": "AppointmentType",
               "label": "Appointment Type",
               "description": "AppointmentType",
-              "editable": true,
+              "editable": false,
               "placeholder": "appointmentType",
               "inputType": "select",
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "range": [
@@ -249,10 +247,10 @@
               "name": "appointmentYear",
               "label": "Appointment Year",
               "description": "Appointment Year",
-              "editable": true,
+              "editable": false,
               "placeholder": "Appointment Year",
               "inputType": "text",
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "renderingHints": {
@@ -266,10 +264,10 @@
               "name": "status",
               "label": "Status",
               "description": "status",
-              "editable": true,
+              "editable": false,
               "placeholder": "status",
               "inputType": "select",
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "range": [
@@ -294,7 +292,7 @@
               "editable": true,
               "placeholder": "classesTaught",
               "inputType": "select",
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "range": [
@@ -325,7 +323,7 @@
               "editable": true,
               "placeholder": "Subjects Taught",
               "inputType": "multiSelect",
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "range": [
@@ -420,7 +418,7 @@
                 "WORKEDUCATION",
                 "OTHER"
               ],
-              "required": true,
+              "required": false,
               "displayProperty": "Editable",
               "visible": true,
               "renderingHints": {
@@ -524,10 +522,10 @@
           "name": "schoolId",
           "label": "School Id",
           "description": "schoolId",
-          "editable": true,
+          "editable": false,
           "placeholder": "schoolId",
           "inputType": "text",
-          "required": true,
+          "required": false,
           "displayProperty": "Editable",
           "visible": true,
           "renderingHints": {
@@ -548,7 +546,7 @@
           "displayProperty": "Editable",
           "visible": true,
           "renderingHints": {
-            "semanticColumnWidth": "six"
+            "semanticColumnWidth": "four"
           },
           "index": 1
         },
@@ -565,7 +563,24 @@
           "displayProperty": "Editable",
           "visible": true,
           "renderingHints": {
-            "semanticColumnWidth": "six"
+            "semanticColumnWidth": "four"
+          },
+          "index": 1
+        },
+        {
+          "code": "isApproved",
+          "dataType": "boolean",
+          "name": "isApproved",
+          "label": "isApproved",
+          "description": "isApproved",
+          "editable": false,
+          "placeholder": "isApproved",
+          "inputType": "boolean",
+          "required": false,
+          "displayProperty": "Editable",
+          "visible": true,
+          "renderingHints": {
+            "semanticColumnWidth": "four"
           },
           "index": 1
         }

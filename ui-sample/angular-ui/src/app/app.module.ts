@@ -34,6 +34,9 @@ import { CacheStorageAbstract } from 'ng2-cache-service/dist/src/services/storag
 import { CacheSessionStorage } from 'ng2-cache-service/dist/src/services/storage/session-storage/cache-session-storage.service';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { Ng2IziToastModule } from 'ng2-izitoast';
+import { SchoolDirectoryComponent } from './components/school-directory/school-directory.component';
+import { SchoolCardComponent } from './components/school-card/school-card.component';
+import { SchoolInfoComponent } from './components/school-info/school-info.component';
 
 let moduleOptions = {
   declarations: [
@@ -44,6 +47,9 @@ let moduleOptions = {
     LandingPageComponent,
     DefaultTemplateComponent,
     AdminPageComponent,
+    SchoolDirectoryComponent,
+    SchoolCardComponent,
+    SchoolInfoComponent,
     ProfileComponent,
     LoginComponent,
     CreateComponent,

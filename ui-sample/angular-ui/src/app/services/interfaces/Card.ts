@@ -4,5 +4,6 @@ export interface ICard {
     subjects: Array<string>;
     qualification: string;
     teacherType: string,
-    code: string
+    code: string,
+    isApproved:boolean
 }

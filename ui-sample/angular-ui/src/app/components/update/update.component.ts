@@ -83,7 +83,7 @@ export class UpdateComponent implements OnInit {
     }
     this.dataService.post(requestData).subscribe(response => {
       this.getFormTemplate();
-      if (response.params.status === 'SUCCESSFULL') {
+      if (response.params.status === 'SUCCESSFUL') {
         this.formInputData = response.result.Teacher;
         this.createSubObjectForFormInput();
         this.userInfo = JSON.stringify(response.result.Teacher)
@@ -139,25 +139,26 @@ export class UpdateComponent implements OnInit {
       });
       updatedFields['osid'] = this.userId;
     }
-    if (Object.keys(updatedFields).length > 0) {
-      _.map(this.formFieldProperties, field => {
-        if (field.required) {
-          if (!this.formData.formInputData[field.code]) {
-            let findObj = _.find(this.formFieldProperties, { code: field.code });
-            emptyFields.push(findObj.label);
-          }
-        }
-      });
-      if (emptyFields.length === 0) {
+    // if (Object.keys(updatedFields).length > 0) {
+    //   _.map(this.formFieldProperties, field => {
+    //     if (field.required) {
+    //       if (!this.formData.formInputData[field.code]) {
+    //         let findObj = _.find(this.formFieldProperties, { code: field.code });
+    //         emptyFields.push(findObj.label);
+    //       }
+    //     }
+    //   });
+    //   if (emptyFields.length === 0) {
         this.updateInfo(updatedFields);
-      }
-      else {
-        this.toasterService.warning("Profile updation failed please provide required fields " + emptyFields.join(', '));
-      }
-    }
+      // }
+      // else {
+      //   this.toasterService.warning("Profile updation failed please provide required fields " + emptyFields.join(', '));
+      // }
+    // }
   }
 
   updateInfo(updatedFieldValues) {
+    updatedFieldValues['isApproved'] = false
     const requestData = {
       data: {
         id: appConfig.API_ID.UPDATE,

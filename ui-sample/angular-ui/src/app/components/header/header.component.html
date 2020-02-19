@@ -5,7 +5,7 @@
                         <div class="six wide column d-flex">
                                 <!--Logo-->
                                 <a class="d-flex logo" tabindex="0" role="banner">
-                                        <img src="assets/images/logo.png" class="ui image"/>
+                                        <img src="assets/images/logo.png" class="ui image" />
                                 </a>
                                 <!--/Logo-->
                         </div>
@@ -31,13 +31,20 @@
                                         <ng-container>
                                                 <a class="item" [class.active]="router.isActive('/search')"
                                                         *ngIf='permissionService.permissionAvailable' appPermission
-                                                        [permission]="userDirectoryViewRole"
-                                                        [routerLink]="'/search'" tabindex="0">
+                                                        [permission]="userDirectoryViewRole" [routerLink]="'/search'"
+                                                        tabindex="0">
                                                         {{resourceService?.frmelmnts?.btn?.search}}
+                                                </a>
+                                                <a class="item" [class.active]="router.isActive('/school')"
+                                                        *ngIf='permissionService.permissionAvailable' appPermission
+                                                        [permission]="userDirectoryViewRole" [routerLink]="'/school'"
+                                                        tabindex="0">
+                                                        {{resourceService?.frmelmnts?.btn?.school}}
                                                 </a>
                                                 <a class="item" [class.active]="router.isActive('create')"
                                                         *ngIf='permissionService.permissionAvailable' appPermission
-                                                        [permission]="onBoardEmployee" [routerLink]="'/create'" tabindex="0">
+                                                        [permission]="onBoardEmployee" [routerLink]="'/create'"
+                                                        tabindex="0">
                                                         {{resourceService?.frmelmnts?.btn?.onBoard}}
                                                 </a>
                                         </ng-container>
@@ -65,7 +72,7 @@
                                         </div>
                                 </a>
                         </div>
-<!-- mobil view -->
+                        <!-- mobil view -->
                         <div class="mobile only">
                                 <div class="ui sidebar right vertical menu">
                                         <!--Logged in user-->
@@ -84,12 +91,21 @@
                                                         [routerLink]="'/search'">
                                                         {{resourceService?.frmelmnts?.btn?.search}}
                                                 </a>
-                                                <a class="item" [class.active]="router.isActive('create')" (click)="showSideBar()"
+                                                <a class="item" [class.active]="router.isActive('/school')"
                                                         *ngIf='permissionService.permissionAvailable' appPermission
-                                                        [permission]="onBoardEmployee" [routerLink]="'/create'" tabindex="0">
+                                                        [permission]="userDirectoryViewRole" (click)="showSideBar()"
+                                                        [routerLink]="'/school'">
+                                                        {{resourceService?.frmelmnts?.btn?.school}}
+                                                </a>
+                                                <a class="item" [class.active]="router.isActive('create')"
+                                                        (click)="showSideBar()"
+                                                        *ngIf='permissionService.permissionAvailable' appPermission
+                                                        [permission]="onBoardEmployee" [routerLink]="'/create'"
+                                                        tabindex="0">
                                                         {{resourceService?.frmelmnts?.btn?.onBoard}}
                                                 </a>
-                                                <a class="item" [class.active]="router.isActive('/profile')" (click)="showSideBar();navigateToProfilePage()"
+                                                <a class="item" [class.active]="router.isActive('/profile')"
+                                                        (click)="showSideBar();navigateToProfilePage()"
                                                         (click)="showSideBar()">
                                                         {{resourceService.frmelmnts?.btn?.profile | titlecase}}
                                                 </a>

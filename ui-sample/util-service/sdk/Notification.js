@@ -58,6 +58,7 @@ class Notification {
             },
             body: reqBody,
         }
+        console.log("send notification", JSON.stringify(reqBody))
         httpUtil.post(option, function (err, res) {
             if (res) {
                 logger.info("notification has been sucessfully sent", res.body)

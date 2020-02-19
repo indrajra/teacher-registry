@@ -32,7 +32,7 @@ const workFlowFunctionPost = (req, res) => {
 
 app.use((req, res, next) => {
     logger.info('pre api request interceptor');
-    // workFlowFunctionPre(req);
+    workFlowFunctionPre(req);
     next();
 });
 
@@ -45,7 +45,7 @@ app.use(interceptor(function (req, res) {
             send(body)
         },
         afterSend(oldResBody, newResBody) {
-            // workFlowFunctionPost(req, newResBody)
+            workFlowFunctionPost(req, newResBody)
         }
     }
 }));
@@ -57,9 +57,9 @@ app.post("/registry/add", (req, res, next) => {
 });
 
 app.post("/registry/search", (req, res, next) => {
-    if (!_.isEmpty(req.headers.authorization)) {
-        req.body.request.viewTemplateId = getViewtemplate(req.headers.authorization);
-    }
+    // if (!_.isEmpty(req.headers.authorization)) {
+    //     req.body.request.viewTemplateId = getViewtemplate(req.headers.authorization);
+    // }
     registryService.searchRecord(req, function (err, data) {
         return res.send(data);
     })

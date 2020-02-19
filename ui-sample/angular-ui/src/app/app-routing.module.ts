@@ -9,6 +9,8 @@ import { CreateComponent } from './components/create/create.component';
 import { UpdateComponent } from './components/update/update.component';
 import { environment } from '../environments/environment';
 import { AppAuthGuard } from './app.authguard';
+import { SchoolDirectoryComponent } from './components/school-directory/school-directory.component';
+import { SchoolInfoComponent } from './components/school-info/school-info.component';
 
 var routes = [
   {
@@ -26,6 +28,17 @@ var routes = [
     component: AdminPageComponent,
     canActivate: [AppAuthGuard],
     data: { roles: 'adminPageViewRole' }
+  },
+  {
+    path: 'school',
+    component: SchoolDirectoryComponent,
+    canActivate: [AppAuthGuard],
+    data: { roles: 'adminPageViewRole' }
+  },
+  {
+    path: 'schoolInfo/:userId', component: SchoolInfoComponent,
+    canActivate: [AppAuthGuard],
+    data: { roles: 'profilePageViewRole' }
   },
   {
     path: 'profile/:userId', component: ProfileComponent,

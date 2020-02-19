@@ -12,11 +12,11 @@ import { UserService } from '../../services/user/user.service';
 import _ from 'lodash-es';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  selector: 'app-school-card',
+  templateUrl: './school-card.component.html',
+  styleUrls: ['./school-card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class SchoolCardComponent implements OnInit {
 
   @ViewChild('modalTemplate')
   public modalTemplate: ModalTemplate<{ data: string }, string, string>;
@@ -91,7 +91,8 @@ export class CardComponent implements OnInit {
         request: {
           Teacher: {
             osid: userId,
-            isApproved: true
+            isOnboarded: true,
+            isActive: true
           }
         }
       },
@@ -106,4 +107,5 @@ export class CardComponent implements OnInit {
       this.toasterService.error(this.data.name + " " + this.resourceService.frmelmnts.msg.OnboardUnSuccess);
     });
   }
+
 }

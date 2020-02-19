@@ -78,7 +78,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "open-saber-ui:build",
-            "port": 9082
+            "port": 9082,
+            "host": "teacher.registry.com"
           },
           "configurations": {
             "production": {
