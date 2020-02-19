@@ -32,7 +32,7 @@
         },
         "location": {
           "$id": "#/properties/location",
-          "$ref": "Common.json#/definitions/SchoolLocation"
+          "$ref": "SchoolLocation.json#/definitions/SchoolLocation"
         }
       }
     }

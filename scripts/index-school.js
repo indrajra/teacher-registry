@@ -115,6 +115,7 @@ status
                     var arrItems = individualItems.split(",")
                     arrItems.forEach(element => {
                         var elementWoQuote = element.replace(/\'/g, "")
+                        elementWoQuote = elementWoQuote.trim()
                         myArr.push(element);
                         var thisLoc = g_locationObj[elementWoQuote]
 
@@ -138,7 +139,7 @@ status
                         }
 
                     });
-                    completePayload["location"] = locationObj
+                    dataPortion["location"] = locationObj
                     delete dataPortion["locationids"]
                     //console.log("Adding location object" + JSON.stringify(completePayload))
                 }
@@ -203,7 +204,7 @@ var csvToJson = function (csvFileName) {
 
 var g_locationObj = {}
 var createLocationMap = function () {
-    var locationArr = csvToJson("prod_location_data.csv")
+    var locationArr = csvToJson("prod_location_data_full.csv")
     locationArr.forEach(item => {
         g_locationObj[item["id"]] = {
             "type": item["type"],
@@ -221,7 +222,7 @@ var addApiPayload = {
 }
 
 // The subject that we have schematized
-var entityType = "Teacher"
+var entityType = "School"
 addApiPayload.request[entityType] = {}
 
 // The URL where the registry is running
@@ -230,20 +231,24 @@ var baseUrl = "http://localhost:9080"
 // Whether you want to run in dryRun mode
 // true - API will not be invoked.
 // false - API will be invoked.
-var dryRun = true
+var dryRun = false
 
 var PARALLEL_LIMIT = 1;
 var dataEntities = {}
 
 function populate(cb) {
     var student_tasks = [];
-    var studentCSV = csvToJson('prod_school_data.csv')
+    var studentCSV = csvToJson('prod_school_data_full.csv')
     populate_add_tasks(student_tasks, entityType, addApiPayload, studentCSV)
     console.log("Total number of students = " + student_tasks.length)
     execute_tasks(student_tasks, "data.json", cb)
 }
 
 createLocationMap()
+setTimeout(function() {
+    console.log('Waited and continuing now')
+}, 3000);
+
 populate(function (err, result) {
     if (err) {
         return (err);
