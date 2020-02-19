@@ -18,7 +18,13 @@
 }
 .ui.card {
     width: 174px;
-    height: 244px;
+    height: 262px;
+}
+
+.content-info .code{
+    font-size: 11px;
+    font-weight: 700;
+    color: #65686b;
 }
 
 .card-background {
@@ -56,7 +62,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 12px;
+    padding: 6px 12px
 }
 
 .qualification {

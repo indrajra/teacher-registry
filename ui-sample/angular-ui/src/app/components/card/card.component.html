@@ -17,6 +17,7 @@
       <div class="header">
         {{data.name | titlecase}}
       </div>
+      <p class="code" *ngIf="data?.code">Code:  {{data?.code}}</p>
       <div class="meta qualification">
         {{data?.qualification}}
       </div>

@@ -3,4 +3,6 @@ export interface ICard {
     identifier:string;
     subjects: Array<string>;
     qualification: string;
+    teacherType: string,
+    code: string
 }
