@@ -115,7 +115,7 @@ class TeacherRegFunctions extends Functions {
      * sends notification to Admin (requesting to onboard new employee)
      * @param {*} callback 
      */
-    sendNotificationForRequestToApproved(callback) {
+    sendNotificationForRequestToApprove(callback) {
         console.log("hey", this.request.body)
         this.addToPlaceholders('subject', "Request to Approve ")
         this.addToPlaceholders('templateId', "requestOnboardTemplate");
@@ -217,7 +217,7 @@ class TeacherRegFunctions extends Functions {
             case 'isApproved':
                 //if isOnBoarded attribute is set to true, email is sent to Employee (as you are OnBoarded successfully to the Ekstep) and Admin (as new Employee onBoarded)
                 if (this.request.body.request[entityType][attribute]) {
-                    actions = ['getRegistryUsersMailId', 'sendNotifications', 'sendOnboardSuccesNotification']
+                    actions = ['getRegistryUsersMailId', 'sendNotifications']
                     this.addToPlaceholders('templateId', "approveTemplate");
                     this.addToPlaceholders('subject', "Successfully Onboarded");
                     this.invoke(actions, (err, data) => {
