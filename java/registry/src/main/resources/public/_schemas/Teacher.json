@@ -38,7 +38,7 @@
         "code": {
           "$id": "#/properties/teacherCode",
           "type": "string",
-          "$comment": "Code"
+          "$comment": "Teacher code particular to school"
         },
         "name": {
           "$id": "#/properties/teacherName",
@@ -49,6 +49,16 @@
           "$id": "#/properties/email",
           "type": "string",
           "title": "Email"
+        },
+        "phone": {
+          "$id": "#/properties/phone",
+          "type": "string",
+          "title": "Phone Number"
+        },
+        "photoUrl": {
+          "$id": "#/properties/photoUrl",
+          "type": "string",
+          "$comment": "photo png"
         },
         "gender": {
           "$id": "#/properties/gender",
@@ -96,6 +106,10 @@
         "isApproved": {
           "$id": "#/properties/isApproved",
           "type": "boolean"
+        },
+        "isActive": {
+          "$id": "#/properties/isActive",
+          "type": "boolean"
         }
       }
     }
@@ -106,12 +120,10 @@
                       "signedFields: Optional; list of field names that must be pre-signed",
                       "indexFields: Optional; list of field names used for creating index. Enclose within braces to indicate it is a composite index. In this definition, (serialNum, teacherCode) is a composite index and teacherName is a single column index.",
                       "uniqueIndexFields: Optional; list of field names used for creating unique index. Field names must be different from index field name",
-                      "systemFields: Optional; list of fields names used for system standard information like created, updated timestamps and userid"], 
-                                           
-         "privateFields": ["nationalIdentifier", "teacherCode", "birthDate"],
-         "signedFields": ["serialNum"],
-         "indexFields": ["(serialNum, teacherCode)","teacherName"],
-         "uniqueIndexFields": ["serialNum", "teacherCode"],
+                      "systemFields: Optional; list of fields names used for system standard information like created, updated timestamps and userid"],      
+         "privateFields": ["email"],
+         "indexFields": ["code","name"],
+         "uniqueIndexFields": ["code"],
          "systemFields": ["_osCreatedAt", "_osUpdatedAt", "_osCreatedBy", "_osUpdatedBy"]
   }
 }

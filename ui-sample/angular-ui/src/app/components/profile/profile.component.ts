@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
   sections = []
   formInputData = {};
   userInfo: string;
-
+  qrCodeUrl = "";
+  
   constructor(dataService: DataService, resourceService: ResourceService, activatedRoute: ActivatedRoute, router: Router, userService: UserService, public cacheService: CacheService
     , permissionService: PermissionService, public toastService: ToasterService) {
     this.dataService = dataService
@@ -152,6 +153,14 @@ export class ProfileComponent implements OnInit {
       if (response.params.status === 'SUCCESSFUL') {
         this.formInputData = response.result.Teacher;
         this.userInfo = JSON.stringify(response.result.Teacher)
+        var qrcodeReq = {
+          name: response.result.Teacher.name,
+          profile: window.location.protocol + "//" + window.location.hostname + "/users/" + response.result.Teacher.osid,
+          photoUrl: response.result.Teacher.photoUrl,
+          code: response.result.Teacher.code,
+          isActive: response.result.Teacher.isActive
+        };
+        this.getQrCode(qrcodeReq);
         this.createSubObjectForFormInput();
       } else {
         this.createSubObjectForFormInput();
@@ -159,6 +168,30 @@ export class ProfileComponent implements OnInit {
     }, (err => {
       console.log(err)
     }))
+  }
+
+  getQrCode(qrcodeReq) {
+    const requestData = {
+      url: "/profile/qrImage",
+      body: {
+        request: qrcodeReq
+      }
+    };
+
+    this.dataService.getImg(requestData).subscribe(response => {
+      this.qrCodeUrl = response;
+    });
+  }
+
+  downloadQrImage() {
+    this.dataService.getImage(this.qrCodeUrl).subscribe(
+      (res) => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(res);
+        a.download = "QrCodeImage";
+        document.body.appendChild(a);
+        a.click();
+      });
   }
 }
 
