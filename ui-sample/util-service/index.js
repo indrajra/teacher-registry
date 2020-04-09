@@ -95,9 +95,11 @@ const createUser = (req, callback) => {
             }
             keycloakHelper.registerUserToKeycloak(keycloakUserReq, callback)
         },
-        function (res, callback) {
-            if (res.statusCode == 201) {
-                addTeacherToRegistry(req, callback)
+        function (res, callback2) {
+            logger.info("Got this response from KC registration " + JSON.stringify(res))
+            if (res.statusCode == 200) {
+                req.body.request[entityType]['kcid'] = res.body.id
+                addTeacherToRegistry(req, callback2)
             } else {
                 callback(res, null)
             }
@@ -144,7 +146,7 @@ const getTokenDetails = (req, callback) => {
  * @param {*} res 
  * @param {*} callback 
  */
-const addTeacherToRegistry = (req, res, callback) => {
+const addTeacherToRegistry = (req, callback) => {
     async.waterfall([
         function (callback1) {
             getNextTeacherCode(req.headers, callback1)

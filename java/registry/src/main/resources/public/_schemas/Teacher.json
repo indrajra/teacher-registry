@@ -60,6 +60,11 @@
           "type": "string",
           "$comment": "photo png"
         },
+        "kcid": {
+          "$id": "#/properties/kcid",
+          "type": "string",
+          "$comment": "Employee identity"
+        },
         "gender": {
           "$id": "#/properties/gender",
           "$ref": "Common.json#/definitions/Gender"
