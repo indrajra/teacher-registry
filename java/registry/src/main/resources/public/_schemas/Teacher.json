@@ -38,7 +38,7 @@
         "code": {
           "$id": "#/properties/teacherCode",
           "type": "string",
-          "$comment": "Teacher code particular to school"
+          "$comment": "Code"
         },
         "name": {
           "$id": "#/properties/teacherName",
@@ -60,11 +60,6 @@
           "type": "string",
           "$comment": "photo png"
         },
-        "kcid": {
-          "$id": "#/properties/kcid",
-          "type": "string",
-          "$comment": "Employee identity"
-        },
         "gender": {
           "$id": "#/properties/gender",
           "$ref": "Common.json#/definitions/Gender"
@@ -76,6 +71,10 @@
         "academicQualification": {
           "$id": "#/properties/highestAcademicQualification",
           "$ref": "Common.json#/definitions/AcademicQualification"
+        },
+        "teacherCourse": {
+          "$id": "#/properties/teacherCourse",
+          "$ref": "TeacherCourse.json#/definitions/TeacherCourse"
         },
         "yearOfJoiningService": {
           "$id": "#/properties/yearOfJoiningService",
@@ -108,6 +107,10 @@
           "$id": "#/properties/school",
           "type": "string"
         },
+        "mentorId": {
+          "$id": "#/properties/mentorId",
+          "type": "string"
+        },
         "isApproved": {
           "$id": "#/properties/isApproved",
           "type": "boolean"
@@ -125,10 +128,12 @@
                       "signedFields: Optional; list of field names that must be pre-signed",
                       "indexFields: Optional; list of field names used for creating index. Enclose within braces to indicate it is a composite index. In this definition, (serialNum, teacherCode) is a composite index and teacherName is a single column index.",
                       "uniqueIndexFields: Optional; list of field names used for creating unique index. Field names must be different from index field name",
-                      "systemFields: Optional; list of fields names used for system standard information like created, updated timestamps and userid"],      
-         "privateFields": ["email"],
-         "indexFields": ["code","name"],
-         "uniqueIndexFields": ["code"],
-         "systemFields": ["_osCreatedAt", "_osUpdatedAt", "_osCreatedBy", "_osUpdatedBy"]
+                      "systemFields: Optional; list of fields names used for system standard information like created, updated timestamps and userid"], 
+                                           
+         "privateFields": ["nationalIdentifier", "teacherCode", "birthDate"],
+         "signedFields": ["serialNum"],
+         "indexFields": ["(serialNum, teacherCode)","teacherName"],
+         "uniqueIndexFields": ["serialNum", "teacherCode"],
+         "systemFields": ["osCreatedAt", "osUpdatedAt", "osCreatedBy", "osUpdatedBy"]
   }
 }
