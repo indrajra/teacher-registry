@@ -114,6 +114,113 @@ const createUser = (req, callback) => {
     });
 }
 
+app.theApp.post("/registry/course/certification", (req, res, next) => {
+    async.waterfall([ 
+            function (callback) {
+            //if auth token is not given , this function is used get access token
+                getTokenDetails(req, callback);
+            },function (token, callback1) {
+                req.headers['authorization'] = token;
+                getTeacherRegistry(req,callback1)
+            },function (reqObj, callback2) {
+                updateCourseCompletedByTeacher(reqObj,callback2)
+            }, function (valuObj, callback3) {
+                updateTeacherCourseCertification(valuObj,callback3)
+            }      
+          ],function (err, result) {
+                logger.info('Main Callback --> ' + result);
+                if (err) {
+                   res.send(err)
+                } else {
+                    res.send(result.body)
+                }
+    });
+  
+});
+
+const getTeacherRegistry = (req, callback) => {
+    let teacherCodeReq = {
+        body: {
+            id: appConfig.APP_ID.SEARCH,
+            request: {
+                entityType: ["Teacher"],
+                
+                filters: {
+                    code:{
+                        eq: req.body.request.teacherCode
+                    }
+                },
+            }
+        },
+        headers:req.headers
+    }
+    registryService.searchRecord(teacherCodeReq, function (err, res) {
+        if (res != undefined && res.params.status == 'SUCCESSFUL') {
+            req.body.request["teacherId"] = res.result.Teacher[0].osid
+            delete req.body.request["teacherCode"] ;
+            callback(null, req)
+        } else {
+            callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
+        }
+    })
+}
+
+const updateCourseCompletedByTeacher = (req, callback) => {
+    logger.info("teacher course certification update")
+
+    var course = {
+        courseName:req.body.request.courseName,
+        courseCode: req.body.request.courseCode,
+        isOnline: req.body.request.isOnline
+    }
+    let updateCourseReq = {
+        body: {
+            id: appConfig.APP_ID.UPDATE,
+            request: {
+                Teacher:{
+                    osid:req.body.request.teacherId,
+                    courses:[course]
+                }
+            }
+       },
+       headers:req.headers
+
+    }
+    registryService.updateRecord(updateCourseReq, (err, res) => {
+        if (res.statusCode == 200) {
+            logger.info("teacher code succesfully updated", res)
+            callback(null, req)
+        } else {
+            logger.info("teacher code updation failed", res)
+            callback({ body: { errMsg: "teacher code update failed" }, statusCode: 500 }, null)
+        }
+    });
+}
+
+
+const updateTeacherCourseCertification = (req, callback) => {
+    logger.info("teacher course certification update")
+    let teacherUpdateCertificationReq = {
+        body: {
+            id: appConfig.APP_ID.CREATE,
+            request: {
+                CourseCertification: req.body.request
+            }
+        },
+        headers:req.headers
+    }
+    registryService.addRecord(teacherUpdateCertificationReq, (err, res) => {
+        if (res.statusCode == 200) {
+            logger.info("teacher code succesfully updated", res)
+            callback(null, res)
+        } else {
+            logger.info("teacher code updation failed", res)
+            callback({ body: { errMsg: "teacher code update failed" }, statusCode: 500 }, null)
+        }
+    });
+}
+
+
 /**
  * returns user token and caches if token is not cached
  * @param {*} req 
