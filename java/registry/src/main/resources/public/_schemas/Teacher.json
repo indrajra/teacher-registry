@@ -21,7 +21,6 @@
         "gender",
         "academicQualification",
         "yearOfJoiningService",
-        "teachingRole",
         "trainedForChildrenSpecialNeeds",
         "trainedInUseOfComputer",
         "schoolId"
@@ -72,10 +71,6 @@
           "$id": "#/properties/highestAcademicQualification",
           "$ref": "Common.json#/definitions/AcademicQualification"
         },
-        "teacherCourse": {
-          "$id": "#/properties/teacherCourse",
-          "$ref": "TeacherCourse.json#/definitions/TeacherCourse"
-        },
         "yearOfJoiningService": {
           "$id": "#/properties/yearOfJoiningService",
           "$ref": "Common.json#/definitions/Year"
@@ -90,6 +85,13 @@
           "items": {
             "$ref": "InServiceTeacherTraining.json#/definitions/InServiceTeacherTraining"
           }
+        },
+        "courses": {
+          "$id": "#/properties/courses",
+          "type": "array",
+          "items": {
+            "$ref": "Course.json#/definitions/Course"
+          }          
         },
         "daysOfNonTeachingAssignments": {
           "$id": "#/properties/daysOfNonTeachingAssignments",

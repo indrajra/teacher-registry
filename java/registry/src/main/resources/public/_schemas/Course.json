@@ -18,8 +18,8 @@
       "$id": "#/properties/",
       "required": [
         "courseCode",
-        "status",
-        "certUrl"
+        "isOnline",
+        "courseName"        
       ],
       "properties": {
         "courseCode": {
@@ -33,14 +33,6 @@
         "isOnline": {
           "$id": "#/properties/isOnline",
           "type": "boolean"
-        },
-        "status": {
-          "$id": "#/properties/status",
-          "type": "string"
-        },
-        "certUrl": {
-          "$id": "#/properties/certUrl",
-          "type": "string"
         }
       }
     }
