@@ -35,6 +35,42 @@ app.theApp.post("/register/users", (req, res, next) => {
         }
     });
 });
+// self registeration api
+app.theApp.post("/register/users/self", (req, res, next) => {
+    selfRegisterUser(req, function (err, data) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(err.body)
+        } else {
+            return res.send(data);
+        }
+    });
+});
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} callback 
+ */
+const selfRegisterUser = (req, callback) => {
+    logger.info("Self-registering " + JSON.stringify(req.body))
+    async.waterfall([
+        function (callback) {
+            getTokenDetails(req, callback);
+        },
+        function (token, callback2) {
+            req.headers['authorization'] = token;
+            addTeacherToRegistry(req, callback2);
+        }
+    ], function (err, result) {
+        logger.info('Main Callback --> ' + result);
+        if (err) {
+            callback(err, null)
+        } else {
+            callback(null, result);
+        }
+    });
+}
 
 app.theApp.post("/profile/qrImage", (req, res, next) => {
     console.log("qrcode req", req.body)

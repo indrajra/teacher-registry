@@ -14,14 +14,6 @@
     "TeachingRole": {
       "$id": "#",
       "type": "object",
-      "required": [
-        "appointmentType",
-        "classesTaught",
-        "appointedForSubjects",
-        "mainSubjectsTaught",
-        "appointmentYear",
-        "status"
-      ],
       "properties": {
         "appointmentType": {
           "$id": "#/properties/appointmentType",
