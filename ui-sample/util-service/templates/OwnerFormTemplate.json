@@ -112,7 +112,7 @@
           "name": "TeacherType",
           "label": "TeacherType",
           "description": "TeacherType",
-          "editable": false,
+          "editable": true,
           "placeholder": "TeacherType",
           "inputType": "select",
           "required": false,

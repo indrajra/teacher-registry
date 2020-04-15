@@ -157,12 +157,13 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
 
   .sb-prominent-filter-field {
     margin: 0;
     margin-bottom: 8px*2;
     padding-right: 8px*2;
-    width: 100%;
+    width: fit-content;
 
     &:last-child {
       margin-top: auto;

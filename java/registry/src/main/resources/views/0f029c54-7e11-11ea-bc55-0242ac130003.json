@@ -1,0 +1,21 @@
+{
+  "subject": "Admin Search Template",
+  "fields": [
+    {
+      "name": "name",
+      "display": true
+    },
+    {
+      "name": "osid"
+    },
+    {
+      "name": "isActive"
+    },
+    {
+      "name":"code"
+    },
+    {
+      "name": "photoUrl"
+    }
+  ]
+}
