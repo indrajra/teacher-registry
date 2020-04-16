@@ -18,11 +18,6 @@
       "required": [
         "code",
         "name",
-        "gender",
-        "academicQualification",
-        "yearOfJoiningService",
-        "trainedForChildrenSpecialNeeds",
-        "trainedInUseOfComputer",
         "schoolId"
       ],
       "properties": {
