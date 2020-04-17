@@ -16,6 +16,9 @@
     },
     {
       "name": "photoUrl"
+    },
+    {
+      "name": "courses"
     }
   ]
 }
