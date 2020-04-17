@@ -96,6 +96,19 @@ public class VertexWriter {
 
         }            
     }
+    
+    /**
+     * Update array nodes
+     * 
+     * @param vertex
+     * @param label
+     * @param updatedUuids
+     */
+    
+    public void updateArrayNode(Vertex vertex,String label, List<Object> updatedUuids) {
+    	String propertyName = RefLabelHelper.getLabel(label, uuidPropertyName);
+    	vertex.property(propertyName,ArrayHelper.formatToString(updatedUuids));
+    }
 
     /**
      * Writes an array into the database. For each array item, if it is an
@@ -162,18 +175,23 @@ public class VertexWriter {
     }
 
     public void writeSingleNode(Vertex parentVertex, String label, JsonNode entryValue) {
-        Vertex v = processNode(label, entryValue);
-        ObjectNode object = (ObjectNode) entryValue;
-        addEdge(label, parentVertex, v);
+    	writeSingleEntityNode(parentVertex,label,entryValue);
+    }
+    
+    public Vertex writeSingleEntityNode(Vertex vertex, String label, JsonNode entryValue) {
+    	  Vertex v = processNode(label, entryValue);
+          ObjectNode object = (ObjectNode) entryValue;
+          addEdge(label, vertex, v);
 
-        String idToSet = databaseProvider.getId(v);
-        object.put(uuidPropertyName,idToSet);
-        parentVertex.property(RefLabelHelper.getLabel(label, uuidPropertyName), idToSet);
+          String idToSet = databaseProvider.getId(v);
+          object.put(uuidPropertyName,idToSet);
+          vertex.property(RefLabelHelper.getLabel(label, uuidPropertyName), idToSet);
 
-        identifyParentOSid(parentVertex);
-        v.property(Constants.ROOT_KEYWORD, parentOSid);
+          identifyParentOSid(vertex);
+          v.property(Constants.ROOT_KEYWORD, parentOSid);
 
-        logger.debug("Added edge between {} and {}", parentVertex.label(), v.label());
+          logger.debug("Added edge between {} and {}", vertex.label(), v.label());
+          return v;
     }
 
     private void identifyParentOSid(Vertex vertex) {
@@ -241,4 +259,5 @@ public class VertexWriter {
         }
         return rootOsid;
     }
+    
 }
