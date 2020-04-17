@@ -158,10 +158,13 @@ app.theApp.post("/registry/course/certification", (req, res, next) => {
             },function (token, callback1) {
                 req.headers['authorization'] = token;
                 getTeacherRegistry(req,callback1)
-            },function (reqObj, callback2) {
-                updateCourseCompletedByTeacher(reqObj,callback2)
-            }, function (valuObj, callback3) {
-                updateTeacherCourseCertification(valuObj,callback3)
+            }, function(reqObj,callback2){
+                getCourseCompletedByTeacher(reqObj,callback2)
+            
+            },function (reqObj, callback3) {
+                updateCourseCompletedByTeacher(reqObj,callback3)
+            }, function (valuObj, callback4) {
+                updateTeacherCourseCertification(valuObj,callback4)
             }      
           ],function (err, result) {
                 logger.info('Main Callback --> ' + result);
@@ -173,6 +176,31 @@ app.theApp.post("/registry/course/certification", (req, res, next) => {
     });
   
 });
+
+const getCourseCompletedByTeacher = (req, callback) => {
+    let teacherCodeReq = {
+        body: {
+            id: appConfig.APP_ID.READ,
+            request: {
+                Teacher :{
+                    osid:req.body.request.teacherId
+
+                }    
+               
+            }
+        },
+        headers:req.headers
+    }
+    registryService.readRecord(teacherCodeReq, function (err, res) {
+        if (res != undefined && res.params.status == 'SUCCESSFUL') {
+            
+            req.body.request["courses"] = res.result.Teacher.courses
+            callback(null, req)
+        } else {
+            callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
+        }
+    })
+}
 
 const getTeacherRegistry = (req, callback) => {
     let teacherCodeReq = {
@@ -209,13 +237,15 @@ const updateCourseCompletedByTeacher = (req, callback) => {
         courseCode: req.body.request.courseCode,
         isOnline: req.body.request.isOnline
     }
+
+    req.body.request.courses.push(course);
     let updateCourseReq = {
         body: {
             id: appConfig.APP_ID.UPDATE,
             request: {
                 Teacher:{
                     osid:req.body.request.teacherId,
-                    courses:[course]
+                    courses:req.body.request.courses
                 }
             }
        },
@@ -223,8 +253,9 @@ const updateCourseCompletedByTeacher = (req, callback) => {
 
     }
     registryService.updateRecord(updateCourseReq, (err, res) => {
-        if (res.statusCode == 200) {
+        if (res != undefined && res.params.status == 'SUCCESSFUL') {
             logger.info("teacher code succesfully updated", res)
+            delete req.body.request["courses"]
             callback(null, req)
         } else {
             logger.info("teacher code updation failed", res)
