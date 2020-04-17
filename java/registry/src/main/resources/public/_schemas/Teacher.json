@@ -115,6 +115,15 @@
         "isActive": {
           "$id": "#/properties/isActive",
           "type": "boolean"
+        },
+        "classes":{
+        	"$id": "#/properties/classes",
+        	"type":"array",
+        	"items":{        	
+        	   "type":"string"
+        	} 
+         }    	
+        
         }
       }
     }
@@ -129,8 +138,8 @@
                                            
          "privateFields": ["nationalIdentifier", "teacherCode", "birthDate"],
          "signedFields": ["serialNum"],
-         "indexFields": ["(serialNum, teacherCode)","teacherName"],
-         "uniqueIndexFields": ["serialNum", "teacherCode"],
+         "indexFields": ["(serialNum, code)","name"],
+         "uniqueIndexFields": ["serialNum", "code"],
          "systemFields": ["osCreatedAt", "osUpdatedAt", "osCreatedBy", "osUpdatedBy"]
   }
 }
