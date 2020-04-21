@@ -31,6 +31,9 @@
     },
     {
       "name": "schoolId"
+    },
+    {
+      "name": "isActive"
     }
   ]
 }

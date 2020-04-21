@@ -193,8 +193,11 @@ const getCourseCompletedByTeacher = (req, callback) => {
     }
     registryService.readRecord(teacherCodeReq, function (err, res) {
         if (res != undefined && res.params.status == 'SUCCESSFUL') {
-            
-            req.body.request["courses"] = res.result.Teacher.courses
+            if(res.result.Teacher.courses){
+                req.body.request["courses"] =res.result.Teacher.courses
+            }else{
+                req.body.request["courses"]=[]
+            }
             callback(null, req)
         } else {
             callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
