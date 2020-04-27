@@ -37,6 +37,7 @@ import { Ng2IziToastModule } from 'ng2-izitoast';
 import { SchoolDirectoryComponent } from './components/school-directory/school-directory.component';
 import { SchoolCardComponent } from './components/school-card/school-card.component';
 import { SchoolInfoComponent } from './components/school-info/school-info.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 let moduleOptions = {
   declarations: [
@@ -57,7 +58,8 @@ let moduleOptions = {
     CardComponent,
     PermissionDirective,
     DataFilterComponent,
-    TimeAgoPipe],
+    TimeAgoPipe,
+    CoursesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

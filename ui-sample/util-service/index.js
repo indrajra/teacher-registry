@@ -13,10 +13,12 @@ const vars = require('./sdk/vars').getAllVars(process.env.NODE_ENV);
 const appConfig = require('./sdk/appConfig');
 const QRCode = require('qrcode');
 const Jimp = require('jimp');
+const CertService = require('./sdk/CertService')
 
 var cacheManager = new CacheManager();
 var registryService = new RegistryService();
 const keycloakHelper = new KeycloakHelper(vars.keycloak);
+var certService = new CertService();
 const entityType = 'Teacher';
 
 const classesMapping = {
@@ -200,7 +202,7 @@ const getCourseCompletedByTeacher = (req, callback) => {
             }
             callback(null, req)
         } else {
-            callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
+            callback({ body: { errMsg: "can't get any courses" }, statusCode: 500 }, null)
         }
     })
 }
@@ -227,7 +229,7 @@ const getTeacherRegistry = (req, callback) => {
             delete req.body.request["teacherCode"] ;
             callback(null, req)
         } else {
-            callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
+            callback({ body: { errMsg: "can't get any teacher osid" }, statusCode: 500 }, null)
         }
     })
 }
@@ -380,11 +382,11 @@ const getNextTeacherCode = (headers, callback) => {
         headers: headers
     }
     registryService.searchRecord(teacherCodeReq, function (err, res) {
-        if (res != undefined && res.params.status == 'SUCCESSFUL') {
+        if (res != undefined && res.params.status == 'SUCCESSFUL' && res.result.TeacherCode[0] != undefined) {
             logger.info("next teacher code is ", res.result.TeacherCode[0])
             callback(null, res.result.TeacherCode[0])
         } else {
-            callback({ body: { errMsg: "can't get any empcode" }, statusCode: 500 }, null)
+            callback({ body: { errMsg: "can't get any teachercode" }, statusCode: 500 }, null)
         }
     })
 }
@@ -417,6 +419,40 @@ const updateTeacherCode = (teacherCode, headers, callback) => {
         }
     });
 }
+
+// Download Certification
+app.theApp.post("/download/certificate", (req, res, next) => {
+    downladCertificate(req, function (err, data) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(err.body)
+        } else {
+            return res.send(data);
+        }
+    });
+});
+
+const downladCertificate = (req, callback) => {
+    let downladCertificateReq = {
+        body: {
+            params: {},
+            request: req.body   
+        },
+        headers:req.headers
+    }
+    certService.downloadCertificate(downladCertificateReq,function (err, res) {
+        if (res != undefined && res.body.responseCode == 'OK') {
+            if(res.body.result && res.body.result.response=='success'){
+                callback(null, res.body)
+            }else{
+                callback({ body: { errMsg: "Error in downloading certificate" }, statusCode: 500 }, null)
+            }
+        } else {
+            callback({ body: { errMsg: "Error in downloading certificate" }, statusCode: 500 }, null)
+        }
+    })
+}
+
 // Init the workflow engine with your own custom functions.
 const wfEngine = WFEngineFactory.getEngine(engineConfig, classesMapping['TeacherRegFunctions'])
 wfEngine.init()

@@ -1,0 +1,39 @@
+<div class="ui container mt-20">
+  <div class="ui small breadcrumb">
+    <a class="section" routerLink=''>{{resourceService?.frmelmnts?.btn?.home}}</a>
+    <i class="right chevron icon divider"></i>
+    <div class="active section">{{resourceService?.frmelmnts?.label?.courseInformation}}</div>
+  </div>
+</div>
+<div class="ui segment" *ngIf="showLoader">
+  <div class="ui raised shadow container segment mb-20 width-50">
+    <div class="ui active medium inline loader"></div>
+  </div>
+</div>
+<div class="ui raised shadow container segment mb-20 width-50" *ngIf="!showLoader">
+  <div class="ui grid mt-5 table-scroll mb-1">
+    <table class="ui celled padded table tablet stackable"
+      *ngIf="listOfCourses.length > 0">
+      <thead>
+        <tr>
+          <th *ngFor="let header of result.headers">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of result.row" >
+          <td *ngFor="let col of result.headers">
+            {{col!='Certification'?(course[col]? course[col]: '-'):''}}
+            <button *ngIf="col == 'Certification'" class="ui secondary basic button mt-5" (click)="downloadCertification(course[col])">Download</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="twelve wide column">
+  <div class="d-flex flex-jc-center">
+    <button class="ui button" (click)="navigateToProfilePage()">
+      {{resourceService?.frmelmnts?.btn?.cancel}}
+    </button>
+  </div>
+</div>

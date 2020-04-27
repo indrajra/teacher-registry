@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { AppAuthGuard } from './app.authguard';
 import { SchoolDirectoryComponent } from './components/school-directory/school-directory.component';
 import { SchoolInfoComponent } from './components/school-info/school-info.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 var routes = [
   {
@@ -69,6 +70,11 @@ var routes = [
     path: 'edit/:userId/:role', component: UpdateComponent,
     canActivate: [AppAuthGuard],
     data: { roles: 'editOwnProfileRole' }
+  },
+  {
+    path: 'courses/:userId', component: CoursesComponent,
+    canActivate: [AppAuthGuard],
+    data: { roles: 'profilePageViewRole' }
   }
 ];
 

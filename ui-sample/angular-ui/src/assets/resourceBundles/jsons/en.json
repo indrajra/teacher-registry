@@ -25,12 +25,14 @@
                 "viewProfile": "View Profile",
                 "search": "Teacher Directory",
                 "yes": "Yes",
-                "school":"School Directory"
+                "school":"School Directory",
+                "viewCourses": "View Courses"
             },
             "label": {
                 "filters": "Filters",
                 "profileInformation": "Profile Information",
-                "updateProfile": "Update Profile"
+                "updateProfile": "Update Profile",
+                "courseInformation" : "Course Information"
             },
             "msg": {
                 "logInHead": "Log-in to your account",
@@ -42,7 +44,8 @@
                 "OnboardUnSuccess": "Onboarding failed",
                 "errorMsg": "Error retrieving data please try again later",
                 "updateFailure": "Profile updation failed please try again later",
-                "updateSuccess":"Updated Successfully"
+                "updateSuccess":"Updated Successfully",
+                "doanloadFailure": "Certification download failed, please try again later"
             }
         }
     }

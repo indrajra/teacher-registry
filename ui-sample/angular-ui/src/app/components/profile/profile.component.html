@@ -34,6 +34,9 @@
       <button class="ui primary button" *ngIf="viewOwnerProfile =='owner'" (click)="navigateToEditPage()">
         {{resourceService?.frmelmnts?.btn?.edit}}
       </button>
+      <button class="ui primary button" (click)="navigateToCoursesPage()">
+        {{resourceService?.frmelmnts?.btn?.viewCourses}}
+      </button>
       <button class="ui button" (click)="navigateToHomePage()">
         {{resourceService?.frmelmnts?.btn?.cancel}}
       </button>

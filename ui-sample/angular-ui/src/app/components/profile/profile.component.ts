@@ -193,5 +193,9 @@ export class ProfileComponent implements OnInit {
         a.click();
       });
   }
+
+  navigateToCoursesPage() {
+      this.router.navigate(['/courses', this.userId]);
+  }
 }
 

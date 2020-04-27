@@ -16,7 +16,8 @@ const config = {
         "notificationUrl": process.env.notificationUrl || "http://localhost:9012",
         "appUrl": process.env.appUrl || "http://localhost:9082",
         "registryUrl": process.env.registry_url || "http://localhost:9080",
-        "nerUtilServiceUrl": process.env.ner_utilservice_url || "http://localhost:9181"
+        "nerUtilServiceUrl": process.env.ner_utilservice_url || "http://localhost:9181",
+        "certServiceUrl": process.env.registry_url || "http://localhost:9000"
     },
     "prod": {
         "keycloak": {
@@ -35,7 +36,8 @@ const config = {
         "notificationUrl": process.env.notificationUrl,
         "appUrl": process.env.appUrl,
         "registryUrl": process.env.registry_url,
-        "nerUtilServiceUrl": process.env.ner_utilservice_url
+        "nerUtilServiceUrl": process.env.ner_utilservice_url,
+        "certServiceUrl": process.env.certification_url
     }
 }
 
