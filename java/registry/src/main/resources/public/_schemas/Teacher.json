@@ -81,11 +81,11 @@
             "$ref": "InServiceTeacherTraining.json#/definitions/InServiceTeacherTraining"
           }
         },
-        "courses": {
-          "$id": "#/properties/courses",
+        "Courses": {
+          "$id": "#/properties/Courses",
           "type": "array",
           "items": {
-            "$ref": "Course.json#/definitions/Course"
+            "$ref": "Courses.json#/definitions/Courses"
           }          
         },
         "daysOfNonTeachingAssignments": {
