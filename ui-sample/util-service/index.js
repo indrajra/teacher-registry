@@ -165,8 +165,6 @@ app.theApp.post("/registry/course/certification", (req, res, next) => {
             
             },function (reqObj, callback3) {
                 updateCourseCompletedByTeacher(reqObj,callback3)
-            }, function (valuObj, callback4) {
-                updateTeacherCourseCertification(valuObj,callback4)
             }      
           ],function (err, result) {
                 logger.info('Main Callback --> ' + result);
@@ -240,7 +238,10 @@ const updateCourseCompletedByTeacher = (req, callback) => {
     var course = {
         courseName:req.body.request.courseName,
         courseCode: req.body.request.courseCode,
-        isOnline: req.body.request.isOnline
+        isOnline: req.body.request.isOnline,
+        isTADAEligible:false,
+        score: req.body.request.score
+
     }
 
     req.body.request.courses.push(course);
@@ -270,27 +271,7 @@ const updateCourseCompletedByTeacher = (req, callback) => {
 }
 
 
-const updateTeacherCourseCertification = (req, callback) => {
-    logger.info("teacher course certification update")
-    let teacherUpdateCertificationReq = {
-        body: {
-            id: appConfig.APP_ID.CREATE,
-            request: {
-                CourseCertification: req.body.request
-            }
-        },
-        headers:req.headers
-    }
-    registryService.addRecord(teacherUpdateCertificationReq, (err, res) => {
-        if (res.statusCode == 200) {
-            logger.info("teacher code succesfully updated", res)
-            callback(null, res)
-        } else {
-            logger.info("teacher code updation failed", res)
-            callback({ body: { errMsg: "teacher code update failed" }, statusCode: 500 }, null)
-        }
-    });
-}
+
 
 
 /**
