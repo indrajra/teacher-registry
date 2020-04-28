@@ -13,7 +13,8 @@ const vars = require('./sdk/vars').getAllVars(process.env.NODE_ENV);
 const appConfig = require('./sdk/appConfig');
 const QRCode = require('qrcode');
 const Jimp = require('jimp');
-const CertService = require('./sdk/CertService')
+const CertService = require('./sdk/CertService');
+var dateFormat = require('dateformat');
 
 var cacheManager = new CacheManager();
 var registryService = new RegistryService();
@@ -424,6 +425,71 @@ const downladCertificate = (req, callback) => {
     certService.downloadCertificate(downladCertificateReq,function (err, res) {
         if (res != undefined && res.body.responseCode == 'OK') {
             if(res.body.result && res.body.result.response=='success'){
+                callback(null, res.body)
+            }else{
+                callback({ body: { errMsg: "Error in downloading certificate" }, statusCode: 500 }, null)
+            }
+        } else {
+            callback({ body: { errMsg: "Error in downloading certificate" }, statusCode: 500 }, null)
+        }
+    })
+}
+
+// Create Certification
+app.theApp.post("/create/certificate", (req, res, next) => {
+    createCertificate(req, function (err, data) {
+        if (err) {
+            res.statusCode = err.statusCode;
+            return res.send(err.body)
+        } else {
+            return res.send(data);
+        }
+    });
+});
+const getCurrentTime = () => {
+    return dateFormat(new Date(), "yyyy-mm-dd")
+}
+const createCertificate = (req, callback) => {
+    let createCertificateReq = {
+        body: {
+            params: {},
+            request: {
+                certificate : {
+                    htmlTemplate : "https://drive.google.com/a/ilimi.in/uc?authuser=1&id=16WgZrm-1Dh44uFryMTo_0uVjZv65mp4u&export=download",
+                    issuedDate : getCurrentTime(),
+                    data : [{
+                        recipientName : req.body.userName
+                    }],
+                    courseName : req.body.courseName,
+                    name: "Certificate of Completion",
+                    tag: "0125450863553740809",
+                    issuer: {
+                        name: "Gujarat Council of Educational Research and Training",
+                        url: "https://gcert.gujarat.gov.in/gcert/",
+                        publicKey: [
+                            "1",
+                            "2"
+                        ]
+                    },
+                    signatoryList: [
+                        {
+                            name: "CEO Gujarat",
+                            id: "CEO",
+                            designation: "CEO",
+                            image: "https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg"
+                        }
+                    ],
+                    criteria: {
+                        narrative: "Course Completion Certificate"
+                    }
+                }
+            }   
+        },
+        headers:req.headers
+    }
+    certService.createCertificate(createCertificateReq,function (err, res) {
+        if (res != undefined && res.body.responseCode == 'OK') {
+            if(res.body.result){
                 callback(null, res.body)
             }else{
                 callback({ body: { errMsg: "Error in downloading certificate" }, statusCode: 500 }, null)

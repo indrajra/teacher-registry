@@ -22,8 +22,8 @@
       <tbody>
         <tr *ngFor="let course of result.row" >
           <td *ngFor="let col of result.headers">
-            {{col!='Certification'?(course[col]? course[col]: '-'):''}}
-            <button *ngIf="col == 'Certification'" class="ui secondary basic button mt-5" (click)="downloadCertification(course[col])">Download</button>
+            {{course[col]? (col!='Certification'?course[col]: ''):'-'}}
+            <button *ngIf="col == 'Certification' && course[col]"  class="ui secondary basic button mt-5" (click)="downloadCertification(course[col])">Download</button>
           </td>
         </tr>
       </tbody>

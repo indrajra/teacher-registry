@@ -106,9 +106,9 @@ export class CoursesComponent implements OnInit {
     const content: any = {
       CourseCode: data.courseCode,
       CourseName: data.courseName,
-      IsOnline: data.isOnline,
-      IsTADAEligible: data.isTADAEligible,
-      Status: data.status,
+      IsOnline: (data.isOnline==true?'Yes':(data.isOnline==false?'No':'-')),
+      IsTADAEligible: (data.isTADAEligible==true?'Yes':(data.isTADAEligible==false?'No':'-')),
+      Status: (data.status==true?'Completed':(data.status==false?'Pending':'-')),
       Certification: data.certUrl
     };
     return content;
